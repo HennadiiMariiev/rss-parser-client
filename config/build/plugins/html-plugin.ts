@@ -34,8 +34,9 @@ export const HTMLPlugin = (options: IHtmlPluginOptions): Plugin => {
           const faviconPath: string[] = [];
 
           if (outdir) {
-            const faviconsFolder = resolveRoot('..', 'public', 'favicons');
+            const faviconsFolder = resolveRoot('public', 'favicons');
 
+            console.log(faviconsFolder);
             if (fs.existsSync(faviconsFolder)) {
               const res = await scan2(faviconsFolder, []);
               faviconPath.push(...prepareFaviconPath(res));
