@@ -7,8 +7,6 @@ import { HTMLPlugin } from './plugins/html-plugin';
 
 const mode = process.env.MODE || 'development';
 
-console.log('mode', process.env.MODE);
-
 const isDev = mode === 'development';
 const isProd = mode === 'production';
 
@@ -44,5 +42,3 @@ const config: BuildOptions = {
 };
 
 export default config;
-
-// env({ process: true }),

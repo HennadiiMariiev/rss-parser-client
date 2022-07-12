@@ -6,6 +6,7 @@ export interface IHtmlPluginOptions {
   title?: string;
   jsPath?: string[];
   cssPath?: string[];
+  faviconPath?: string[];
 }
 
 export interface IOptions {

@@ -1,9 +1,15 @@
 import { Plugin } from 'esbuild';
 import { rm, writeFile } from 'fs/promises';
+import fs from 'fs';
+import fs_extra from 'fs-extra';
 import path from 'path';
 
 import { IHtmlPluginOptions } from '../../../src/interfaces/interfaces';
-import { renderHtml, preparePaths } from './helpers';
+import { renderHtml, preparePaths, scan2, prepareFaviconPath, resolveRoot } from './helpers';
+
+// function resolveRoot(...segments: string[]) {
+//   return path.resolve(__dirname, '..', '..', ...segments);
+// }
 
 export const HTMLPlugin = (options: IHtmlPluginOptions): Plugin => {
   return {
@@ -22,11 +28,26 @@ export const HTMLPlugin = (options: IHtmlPluginOptions): Plugin => {
       });
 
       build.onEnd(async (result) => {
-        const outputs = result.metafile?.outputs;
-        const [jsPath, cssPath] = preparePaths(Object.keys(outputs || {}));
+        try {
+          const outputs = result.metafile?.outputs;
+          const [jsPath, cssPath] = preparePaths(Object.keys(outputs || {}));
+          const faviconPath: string[] = [];
 
-        if (outdir) {
-          await writeFile(path.resolve(outdir, 'index.html'), renderHtml({ jsPath, cssPath, ...options }));
+          if (outdir) {
+            const faviconsFolder = resolveRoot('..', 'public', 'favicons');
+
+            if (fs.existsSync(faviconsFolder)) {
+              const res = await scan2(faviconsFolder, []);
+              faviconPath.push(...prepareFaviconPath(res));
+              await fs_extra.copy(faviconsFolder, outdir);
+            }
+            await writeFile(
+              path.resolve(outdir, 'index.html'),
+              renderHtml({ jsPath, cssPath, faviconPath, ...options })
+            );
+          }
+        } catch (error) {
+          console.log(error);
         }
       });
     },

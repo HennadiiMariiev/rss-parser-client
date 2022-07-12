@@ -1,5 +1,4 @@
 import ESBuild from 'esbuild';
-import path from 'path';
 
 import config from './esbuild-config';
 
