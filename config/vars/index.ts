@@ -1,0 +1,14 @@
+const MODE = process.env.MODE;
+const API_URL = process.env.API_URL;
+
+const POSTS_LIMIT = 12;
+const MOBILE_SLICE_COUNT = 7;
+const DEFAULT_SLICE_COUNT = 15;
+const OPTION_NAME_SLICE_COUNT = 28;
+
+const QUERY_OPTIONS = {
+  keepPreviousData: true,
+  staleTime: 30000,
+};
+
+export { MODE, API_URL, POSTS_LIMIT, MOBILE_SLICE_COUNT, DEFAULT_SLICE_COUNT, OPTION_NAME_SLICE_COUNT, QUERY_OPTIONS };

@@ -1,4 +1,29 @@
 * {
-    color: green;
-    font-weight: 600;
+    color: #0c0c0c;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-y: scroll;
+  }
+
+
+p, h1, h2, h3, h4, ul, li, a {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #49409cbb!important;
+    transition: all 250ms ease-in-out;
+}
+
+a:hover {
+    color: #49409c!important;
+}
+
+.page-item.active .page-link {
+    color: #FFF;
+    background-color: #49409c!important;
+    border-color: #49409c!important;
 }

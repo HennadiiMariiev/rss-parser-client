@@ -10,8 +10,12 @@
       "esModuleInterop": true,
       "moduleResolution": "node",
       "allowSyntheticDefaultImports": true,
-      "isolatedModules": true
+      "isolatedModules": true,
+      "lib": [
+        "es5", "es6", "dom", "dom.iterable"
+    ]
     },
+    "include": ["./src/files_types.d.ts"],
     "ts-node": {
       "compilerOptions": {
         "module": "commonjs"

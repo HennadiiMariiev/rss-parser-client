@@ -1,0 +1,19 @@
+.filters-wrapper {
+    margin-bottom: 1rem;
+
+    display: block;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.filters-item:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.filters-label {
+    display: block;
+    font-weight: 600;
+    margin: 0 0.5rem 0 0 !important; 
+    text-transform: capitalize;
+}
