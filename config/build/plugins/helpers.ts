@@ -80,9 +80,9 @@ export const renderHtml = ({ template, title, cssPath, jsPath, faviconPath }: IH
                 ${scripts}
                 <script>
                 const evtSource = new EventSource('http://localhost:3000/subscribe')
-               evtSource.onopen = function () { console.log('open') }
-               evtSource.onerror = function () { console.log('error') }
-               evtSource.onmessage = function () { 
+                evtSource.onopen = function () { console.log('open') }
+                evtSource.onerror = function () { console.log('error') }
+                evtSource.onmessage = function () { 
                     console.log('message')
                     window.location.reload();
                 }

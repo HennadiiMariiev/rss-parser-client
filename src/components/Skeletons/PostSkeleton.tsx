@@ -2,17 +2,18 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 
+//@ts-ignore
 import img from '../../images/default-placeholder.png';
 
-import '../Posts/post.module.css';
+import './skeletons.module.css';
 
 function PostSkeleton() {
   return (
     <Card className="skeleton-wrapper">
-      <div className="post-left-wrapper">
+      <div className="skeleton-left-wrapper">
         <Card.Img variant="top" className="skeleton-image" src={img} />
       </div>
-      <Card.Body className="post-meta align-items-stretch">
+      <Card.Body className="skeleton-meta align-items-stretch">
         <Placeholder animation="glow" className="mb-3">
           <Placeholder xs={5} />
         </Placeholder>

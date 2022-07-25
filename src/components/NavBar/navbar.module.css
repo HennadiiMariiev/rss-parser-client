@@ -12,6 +12,10 @@
     padding: 0 0.5rem;
 }
 
+.menu-header .user-menu{
+    padding: 0;
+}
+
 .logo-emoji {
     display: block;
     transition: all 250ms ease-in-out;
@@ -31,9 +35,12 @@
 }
 
 .user-menu {
-    display: none;
     cursor: auto;
     font-size: 1.25rem;
+}
+
+.header .user-menu {
+    display: none;
 }
 
 .user-menu-name {
@@ -66,13 +73,30 @@
     padding-top: 0.5rem!important;
 }
 
-.menu-header,
+.menu-header {
+    padding: 15px!important;
+    background-color: #49409caa!important;
+}
+
 .menu-body {
     background-color: #49409c11!important;
 }
 
+.user-menu-skeleton-logo {
+    width: 30px!important;
+    font-size: 1.5rem;
+    color: #3b45cf;
+    margin-right: 0.5rem;
+}
+
+.user-menu-skeleton-text {
+    width: 100px!important;
+    font-size: 1.5rem;
+    color: #FAFAFA;
+}
+
 @media screen  and (min-width: 768px){
-    .user-menu {
+    .header .user-menu {
         display: flex;
     }
     .menu-button {

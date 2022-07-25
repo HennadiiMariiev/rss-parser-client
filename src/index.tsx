@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
-import QueryProvider from './providers/QueryProvider';
+
+import WrappedApp from './WrappedApp';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,8 +12,4 @@ if (!rootElement) {
 }
 
 const root = createRoot(rootElement);
-root.render(
-  <QueryProvider>
-    <App />
-  </QueryProvider>
-);
+root.render(<WrappedApp />);

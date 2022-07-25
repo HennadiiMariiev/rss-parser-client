@@ -1,15 +1,11 @@
 import { Plugin } from 'esbuild';
-import { rm, writeFile } from 'fs/promises';
-import fs from 'fs';
-import fs_extra from 'fs-extra';
 import path from 'path';
+import fs from 'fs';
+import { rm, writeFile } from 'fs/promises';
+import fs_extra from 'fs-extra';
 
 import { IHtmlPluginOptions } from '../../../src/interfaces/interfaces';
 import { renderHtml, preparePaths, scan2, prepareFaviconPath, resolveRoot } from './helpers';
-
-// function resolveRoot(...segments: string[]) {
-//   return path.resolve(__dirname, '..', '..', ...segments);
-// }
 
 export const HTMLPlugin = (options: IHtmlPluginOptions): Plugin => {
   return {
@@ -36,7 +32,6 @@ export const HTMLPlugin = (options: IHtmlPluginOptions): Plugin => {
           if (outdir) {
             const faviconsFolder = resolveRoot('public', 'favicons');
 
-            console.log(faviconsFolder);
             if (fs.existsSync(faviconsFolder)) {
               const res = await scan2(faviconsFolder, []);
               faviconPath.push(...prepareFaviconPath(res));

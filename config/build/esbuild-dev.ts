@@ -37,7 +37,7 @@ ESBuild.build({
   watch: {
     onRebuild(err) {
       if (err) {
-        console.log(err);
+        console.log('Error: ', err);
       } else {
         console.log('build...');
         sendMessage();

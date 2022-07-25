@@ -1,0 +1,51 @@
+.sign-form {
+    width: 100%; 
+}
+
+.nav-item button {
+    color: #49409cdd;
+}
+
+.nav-item button:hover {
+    color: #49409c;
+}
+
+.nav-item button.active {
+    color: #6c757d;
+}
+
+.active {
+    color: #49409c!important;
+    text-decoration: none;
+}
+
+.submit-button {
+    border: 1px solid #49409cdd!important;
+    background-color: #49409cdd!important;
+
+    transition: all 250ms ease-in-out;
+}
+
+.password-input {
+    position: relative;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+
+    transform: translateY(-50%);
+
+    padding: 1px 2px!important;
+}
+
+.submit-button:hover {
+    background-color: #49409c!important;
+}
+
+@media screen and (min-width: 480px) {
+    .sign-form {
+        width: 400px; 
+    } 
+}

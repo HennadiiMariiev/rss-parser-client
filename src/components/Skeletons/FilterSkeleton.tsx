@@ -1,7 +1,7 @@
 import React from 'react';
 import Placeholder from 'react-bootstrap/Placeholder';
 
-import '../Posts/post.module.css';
+import './skeletons.module.css';
 
 function ItemSkeleton() {
   const width = ~~(Math.random() * 7 + 3);

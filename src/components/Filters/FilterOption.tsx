@@ -1,23 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, InputGroup, Form } from 'react-bootstrap';
-// import { FixedSizeList as List } from 'react-window';
 
-import { useCreators } from '../../api/creators';
-import { useCategories } from '../../api/categories';
-import { onFilterItemSelect } from '../../helpers/onIFiltertemSelect';
-import { prepareName } from '../../helpers/prepareName';
-import { IOption, IFilterOptionProps } from '../../interfaces/interfaces';
+import { useAppContext } from '../../providers/ContextProvider';
+import { useGetCreators } from '../../api/creators';
+import { useGetCategories } from '../../api/categories';
+import { onFilterItemSelect } from '../../helpers/onIFilterItemSelect';
+import { addNoOptionItem } from '../../helpers/addNoOptionItem';
+import { IFilterOptionProps, IOption } from '../../interfaces/interfaces';
+import NewOptionModal from '../Modal/EditOptionModal';
+import OptionsItem from './OptionsItem';
 import FilterSkeleton from '../Skeletons/FilterSkeleton';
 import List from './OptionsList';
 
 import './filters.module.css';
-import OptionsItem from './OptionsItem';
 
 function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
-  const { data, isLoading } = optionName === 'creators' ? useCreators() : useCategories();
   const emoji = optionName === 'creators' ? '👥' : '📚';
-  const optionData = data?.data?.data?.[optionName];
-  const total: number = data?.data?.data?.total || 0;
+  const { data, isLoading } = optionName === 'creators' ? useGetCreators() : useGetCategories();
+  const [showModal, setShowModal] = useState(false);
+  const { admin } = useAppContext();
+  let optionData: IOption[] = [];
+  const total: number = data?.data?.data?.total + 1 || 0;
+
+  useEffect(() => {
+    if (data?.data?.data?.[optionName]?.length) {
+      optionData = addNoOptionItem(data?.data?.data?.[optionName], optionName);
+    }
+  }, [data?.data?.data?.[optionName]]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => onFilterItemSelect(e, option, setOption);
 
@@ -34,10 +43,17 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
         });
       }, [option]);
 
+      if (isLoading) {
+        return <FilterSkeleton />;
+      }
+
       return (
         <List total={total} optionData={optionData}>
           {({ data, index, style }) => {
-            const { name, _id } = data[index];
+            if (!data.length) {
+              return null;
+            }
+            const { _id, name } = data[index];
             return (
               <OptionsItem
                 style={style}
@@ -54,22 +70,35 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
         </List>
       );
     },
-    [optionData]
+    [data?.data?.data?.[optionName]]
   );
 
   return (
-    <InputGroup className="filters-item mb-2">
-      <div className="w-100 d-flex align-items-center justify-content-between mb-1">
-        <Form.Label id="creators" className="filters-label">
-          {optionName} {emoji}
-          <sup>({total})</sup>
-        </Form.Label>
-        <Button variant="light" size="sm" onClick={() => setOption([])}>
-          🗑️ Clear all
-        </Button>
-      </div>
-      {isLoading ? <FilterSkeleton /> : <OptionsList option={option} />}
-    </InputGroup>
+    <React.Fragment>
+      <InputGroup className="filters-item mb-2">
+        <div className="w-100 d-flex align-items-center justify-content-between mb-1">
+          <Form.Label id="creators" className="filters-label">
+            {optionName} {emoji}
+            <sup>({total})</sup>
+          </Form.Label>
+          {admin.isLoggedIn && (
+            <Button variant="light" size="sm" onClick={() => setShowModal(true)}>
+              ✍🏻 Edit
+            </Button>
+          )}
+          <Button variant="light" size="sm" onClick={() => setOption([])}>
+            Reset
+          </Button>
+        </div>
+        <OptionsList option={option} />
+      </InputGroup>
+      <NewOptionModal
+        showModal={showModal}
+        onCloseModal={() => setShowModal(false)}
+        optionName={optionName}
+        optionData={data?.data?.data?.[optionName]}
+      />
+    </React.Fragment>
   );
 }
 

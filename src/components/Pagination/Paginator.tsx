@@ -9,7 +9,7 @@ function Paginator({ pagination, setPagination }: IPaginationProps) {
   const isMobileView = isMobile();
 
   const paginationItems = useMemo(() => {
-    const pages = [];
+    const pages: JSX.Element[] = [];
 
     for (let n = 1; n <= pageCount; n++) {
       pages.push(
@@ -28,11 +28,13 @@ function Paginator({ pagination, setPagination }: IPaginationProps) {
     return null;
   }
 
-  if (pageCount > 16 || isMobileView) {
+  if (pageCount > 13 || isMobileView) {
     return (
       <Pagination size="sm">
         <Pagination.First onClick={() => onPaginationClick(1)} disabled={page === 1} />
         <Pagination.Prev onClick={() => onPaginationClick(page !== 1 ? page - 1 : 1)} disabled={page === 1} />
+        {page > 4 && <Pagination.Item onClick={() => onPaginationClick(1)}>{1}</Pagination.Item>}
+        {page > 4 && <Pagination.Item onClick={() => onPaginationClick(2)}>{2}</Pagination.Item>}
         {page > 4 && <Pagination.Ellipsis onClick={() => onPaginationClick(Math.floor(pageCount / 4))} />}
         {page > 2 && <Pagination.Item onClick={() => onPaginationClick(page - 2)}>{page - 2} </Pagination.Item>}
         {page > 1 && (
@@ -45,8 +47,14 @@ function Paginator({ pagination, setPagination }: IPaginationProps) {
         {page < pageCount - 1 && (
           <Pagination.Item onClick={() => onPaginationClick(page + 2)}>{page + 2}</Pagination.Item>
         )}
-        {page < pageCount - 5 && (
+        {page < pageCount - 4 && (
           <Pagination.Ellipsis onClick={() => onPaginationClick(Math.ceil(pageCount / 2 + pageCount / 4))} />
+        )}
+        {page < pageCount - 4 && (
+          <Pagination.Item onClick={() => onPaginationClick(pageCount - 1)}>{pageCount - 1}</Pagination.Item>
+        )}
+        {page < pageCount - 4 && (
+          <Pagination.Item onClick={() => onPaginationClick(pageCount)}>{pageCount}</Pagination.Item>
         )}
         <Pagination.Next
           onClick={() => onPaginationClick(page !== pageCount ? page + 1 : pageCount)}

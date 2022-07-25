@@ -4,6 +4,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { IMobileMenuProps } from '../../interfaces/interfaces';
 
 import './navbar.module.css';
+import UserMenu from './UserMenu';
 
 const options = {
   scroll: true,
@@ -17,7 +18,7 @@ function MobileMenu({ show, setShow, children }: IMobileMenuProps) {
     <Offcanvas show={show} onHide={handleClose} className="menu__wrapper" {...options}>
       <Offcanvas.Header closeButton className="menu-header">
         <Offcanvas.Title className="d-flex">
-          <span className="logo-emoji">📰</span>LifeHacker
+          <UserMenu />
         </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className="menu-body">{children}</Offcanvas.Body>
