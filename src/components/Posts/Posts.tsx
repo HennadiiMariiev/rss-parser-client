@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { IPost, IPostsProps, IResponseError, TError } from '../../interfaces/interfaces';
+import { IPost, IPostsProps, IResponseError } from '../../interfaces/interfaces';
 import SinglePost from './SinglePost';
 import SkeletonList from '../Skeletons/SkeletonList';
 import NoItems from './NoItems';

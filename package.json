@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./config/build/esbuild-dev.ts",
-    "dev": "ts-node -r esbuild-register ./config/build/esbuild-dev.ts",
-    "build": "cross-env MODE=production ts-node ./config/build/esbuild-prod.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cross-env MODE=production ts-node ./config/build/esbuild-prod.ts"
   },
   "keywords": [],
   "author": "",

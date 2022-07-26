@@ -46,14 +46,14 @@ function Home() {
   const total = data?.data?.data?.pagination?.total;
 
   useEffect(() => {
-    if (total! >= 0) {
-      setPagination((prev) => ({ ...prev, pageCount: Math.ceil(total! / pagination.limit), total }));
+    if (total && total >= 0) {
+      setPagination((prev) => ({ ...prev, pageCount: Math.ceil(total / pagination.limit), total }));
     }
-  }, [total, pagination.limit]);
+  }, [total, pagination.limit, setPagination]);
 
   useEffect(() => {
     setPagination((prev) => ({ ...prev, page: 1 }));
-  }, [categories, creators]);
+  }, [categories, creators, setPagination]);
 
   return (
     <Wrapper>

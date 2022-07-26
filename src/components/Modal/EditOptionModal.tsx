@@ -8,32 +8,32 @@ import { useAddOption, useDeleteOptions } from '../../api/option';
 import { useAppContext } from '../../providers/ContextProvider';
 import { extractErrors, getErrorMessage } from '../../helpers/getErrorMessage';
 import OptionsModalList from './OptionsModalList';
+import { showInfo, showError } from '../../helpers/messageHelpers';
 
 function EditOptionModal({ showModal, onCloseModal, optionName, optionData }: IEditOptionModalProps) {
   const { setMessage } = useAppContext();
   const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
   const optionNameStr = optionName === 'categories' ? 'category' : 'creator';
-
-  const { register, handleSubmit, formState: { errors }, reset, clearErrors } = useForm<IOptionForm>();
   const useAdd = useAddOption(optionName);
   const useDelete = useDeleteOptions(optionName);
+  const { register, handleSubmit, formState: { errors }, reset, clearErrors } = useForm<IOptionForm>();
 
   useEffect(() => {
     if(useAdd.isSuccess) {
-      setMessage((prev) => ({...prev, text: `New ${optionNameStr} has been added successfully 👌`, isError: false}));
+      showInfo(setMessage, `New ${optionNameStr} has been added successfully 👌`);
       reset({name: ""});
     }
     if(useDelete.isSuccess) {
-      setMessage((prev) => ({...prev, text: `Deleted successfully 👌`, isError: false}));
+      showInfo(setMessage, `Deleted successfully 👌`);
     }
     if(useAdd.isError || useDelete.isError) {
       const errors = extractErrors(useAdd, useDelete);
       const message = getErrorMessage(errors);
-      setMessage((prev) => ({...prev, text: message, isError: true}));
+      showError(setMessage, message);
     }
     useAdd.reset();
     useDelete.reset();
-  }, [useAdd.isSuccess, useAdd.isError, useDelete.isError, useDelete.isSuccess]);
+  }, [useAdd.isSuccess, useAdd.isError, useDelete.isError, useDelete.isSuccess, setMessage]);
   
   const OptionsList = useCallback(() => {
     const data = Array.isArray(optionData) ? optionData : []

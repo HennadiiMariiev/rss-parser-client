@@ -9,6 +9,7 @@ import PostModalMarkup from './PostModalMarkup';
 import { useAddPost } from '../../api/posts';
 import { useAppContext } from '../../providers/ContextProvider';
 import { extractAddErrors, getErrorMessage } from '../../helpers/getErrorMessage';
+import { showError, showInfo } from '../../helpers/messageHelpers';
 
 function NewPostModal({ showModal, onCloseModal }: IDialogModalProps) {
   const [loading, setLoading] = useState(false);
@@ -26,13 +27,13 @@ function NewPostModal({ showModal, onCloseModal }: IDialogModalProps) {
   useEffect(() => {
     if(addPost.isSuccess) {
       reset();
-      setMessage({show: true, text: "Post has been added successfully 👌", isError: false})
+      showInfo(setMessage, "Post has been added successfully 👌");
       onCloseModal();
     }
     if(addPost.isError) {
       const errors = extractAddErrors(addPost);
       const message = getErrorMessage(errors);
-      setMessage({show: true, text: message, isError: true});
+      showError(setMessage, message);
     }
   }, [addPost.isSuccess, addPost.isError]);
 
