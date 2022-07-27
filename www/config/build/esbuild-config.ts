@@ -29,7 +29,7 @@ const config: BuildOptions = {
     '.jpg': 'file',
     '.jpeg': 'file',
   },
-  plugins: [CleanPlugin, env({ process: true }), HTMLPlugin({ title: 'LifeHacker Rss' })],
+  plugins: [CleanPlugin, env({ process: true }), HTMLPlugin({ title: 'LifeHacker Rss', isProduction: isProd })],
   watch: isDev && {
     onRebuild(err) {
       if (err) {

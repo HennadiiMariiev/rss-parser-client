@@ -8,6 +8,7 @@ export interface IHtmlPluginOptions {
   jsPath?: string[];
   cssPath?: string[];
   faviconPath?: string[];
+  isProduction?: boolean;
 }
 
 export interface IOptions {

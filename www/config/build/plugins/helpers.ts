@@ -51,7 +51,7 @@ export const getFaviconResolution = (favicon : string) => {
     return favicon.includes(SMALL_RES) ? SMALL_RES : favicon.includes(LARGE_RES) ? LARGE_RES : '';
 }
 
-export const renderHtml = ({ template, title, cssPath, jsPath, faviconPath }: IHtmlPluginOptions): string => {
+export const renderHtml = ({ template, title, cssPath, jsPath, faviconPath, isProduction = false }: IHtmlPluginOptions): string => {
   if (template) {
     return template;
   }
@@ -62,6 +62,16 @@ export const renderHtml = ({ template, title, cssPath, jsPath, faviconPath }: IH
     const resolution = getFaviconResolution(path);
     return `<link rel="icon" href="${path}" ${resolution && `sizes="${resolution}"`}>`;
   }).join('')
+
+  const devScript = "<script>\n" +
+                      "const evtSource = new EventSource('http://localhost:3000/subscribe');\n" +
+ "evtSource.onopen = function () { console.log('open') };\n" +
+ "evtSource.onerror = function () { console.log('error') };\n" +
+ "evtSource.onmessage = function () { " +
+ "   console.log('message');\n" +
+"     window.location.reload();\n" +
+ "}\n" +
+"</script>";
 
   return `
         <!doctype html>
@@ -78,16 +88,7 @@ export const renderHtml = ({ template, title, cssPath, jsPath, faviconPath }: IH
             <body>
                 <div id="root"></div>
                 ${scripts}
-                <script>
-                const evtSource = new EventSource('http://localhost:3000/subscribe')
-                evtSource.onopen = function () { console.log('open') }
-                evtSource.onerror = function () { console.log('error') }
-                evtSource.onmessage = function () { 
-                    console.log('message')
-                    window.location.reload();
-                }
-               
-               </script>
+                ${!isProduction ? devScript : ''}
             </body>
         </html>
                       `;
