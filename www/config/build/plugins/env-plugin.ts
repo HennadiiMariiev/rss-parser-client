@@ -24,7 +24,7 @@ export function defineProcessEnv() {
    * @type {{ [key: string]: string }}
    */
   const definitions: Record<string, string> = {};
-  definitions['process.env.REACT_APP_MODE'] = JSON.stringify(process.env.REACT_APP_MODE || 'production');
+  definitions['process.env.REACT_APP_MODE'] = JSON.stringify(process.env.REACT_APP_MODE || 'development');
   Object.keys(process.env).forEach((key) => {
     if (isValidId(key)) {
       definitions[`process.env.${key}`] = JSON.stringify(process.env[key]);

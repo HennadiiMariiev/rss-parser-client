@@ -5,7 +5,7 @@ import { CleanPlugin } from './plugins/clean-plugin';
 import { env } from './plugins/env-plugin';
 import { HTMLPlugin } from './plugins/html-plugin';
 
-const mode = process.env.REACT_APP_MODE || 'production';
+const mode = process.env.REACT_APP_MODE || 'development';
 
 const isDev = mode === 'development';
 const isProd = mode === 'production';
