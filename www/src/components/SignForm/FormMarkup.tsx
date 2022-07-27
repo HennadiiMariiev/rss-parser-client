@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Form, ToggleButton, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 
-import { emailPattern, namePattern, passwordPattern } from '../../../config/vars/';
+import { emailPattern, namePattern, passwordPattern } from '../../../config/vars';
 import { isRegisterPage } from '../../helpers/isRegisterPage';
 import { IFormMarkupProps } from '../../interfaces/interfaces';
 import SignButton from './SignButton';
