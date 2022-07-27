@@ -7,7 +7,7 @@ const isDev = () => REACT_APP_MODE === 'development';
 const URL = isDev() ? 'http://localhost:4000/api' : `https://lifehacker-rss-parser-server.herokuapp.com/api`;
 
 const instance = axios.create({
-  withCredentials: true,
+  // withCredentials: true,
   baseURL: URL,
 });
 
