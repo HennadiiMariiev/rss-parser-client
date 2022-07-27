@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { MODE } from '../../config/vars';
+import { MODE, API_URL } from '../../config/vars';
 import { IAdminResponse } from '../interfaces/interfaces';
 
-const API_URL = 'www.google.com';
-const URL = MODE ? 'localhost:4000' : API_URL;
+const isDev = () => MODE === 'development';
 
+const URL = isDev() ? 'http://localhost:4000/api' : `${API_URL}/api`;
 
 const instance = axios.create({
   withCredentials: true,
-  baseURL: `http://${URL}/api`,
+  baseURL: URL,
 });
 
 instance.interceptors.request.use((config) => {
