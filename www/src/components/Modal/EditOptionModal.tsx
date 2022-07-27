@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Modal, Button, Spinner, Form, InputGroup } from 'react-bootstrap';
-import { useForm, SubmitHandler } from "react-hook-form";
+import {useForm, SubmitHandler} from 'react-hook-form';
 
 import { namePattern } from '../../../config/vars';
 import { IEditOptionModalProps, IOptionForm } from '../../interfaces/interfaces';
