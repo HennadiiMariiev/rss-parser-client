@@ -6,6 +6,6 @@ ESBuild.build({ ...config }).then((result) => {
     const { errors, warnings, metafile, stop } = result;
     const outputs = metafile?.outputs!;
     console.log('result: ', {errors, warnings, outputs, stop});
-    process.exit(1);
+    process.exit(0);
   })
   .catch(console.log);
