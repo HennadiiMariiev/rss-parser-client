@@ -1,4 +1,4 @@
-const MODE = process.env.MODE;
-const API_URL = process.env.API_URL;
+const REACT_APP_MODE = process.env.REACT_APP_MODE;
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
-export { MODE, API_URL };
+export { REACT_APP_MODE, REACT_APP_API_URL };
