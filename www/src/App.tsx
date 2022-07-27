@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import { REACT_APP_MODE, REACT_APP_API_URL } from '../config/vars';
 import Home from './components/Home';
 import Login from './components/Login';
 import { useRefresh } from './api/auth';
@@ -8,6 +9,8 @@ import { useAppContext } from './providers/ContextProvider';
 import useStorageToken from './hooks/useStorageToken';
 
 import './index.css';
+
+console.log(REACT_APP_MODE, REACT_APP_API_URL);
 
 function App() {
   const { setAdmin } = useAppContext();
@@ -31,7 +34,7 @@ function App() {
       if (isSuccess) {
         const res = data?.data?.data?.admin;
         const { accessToken, refreshToken } = data?.data?.data?.tokens;
-  
+
         setAdmin(() => ({ ...res, isAuthInProgress: isLoading, isLoggedIn: true, accessToken, refreshToken }));
         setRefreshToken(refreshToken);
         setAccessToken(accessToken);
