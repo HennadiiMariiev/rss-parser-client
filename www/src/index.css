@@ -26,3 +26,10 @@ a:hover {
     background-color: #49409c!important;
     border-color: #49409c!important;
 }
+
+.popover-arrow,
+.popover-arrow::after,
+.popover-arrow::before,
+.popover-header::before {
+    display: none !important;
+}
