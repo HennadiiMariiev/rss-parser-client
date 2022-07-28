@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -9,7 +9,6 @@ import { MOBILE_SLICE_COUNT, DEFAULT_SLICE_COUNT } from '../../config/vars';
 import '../components/Posts/post.module.css';
 
 export function prepareCategories(categories: ICategory[] = []) {
-  // const target = useRef(null);
   const cb = (item: ICategory, idx: number) => (
     <li key={idx} className="post-category">
       {item?.name}

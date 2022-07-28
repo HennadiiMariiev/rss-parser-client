@@ -3,10 +3,6 @@
     box-sizing: border-box;
 }
 
-body {
-    overflow-y: scroll;
-  }
-
 
 p, h1, h2, h3, h4, ul, li, a {
     margin: 0;
