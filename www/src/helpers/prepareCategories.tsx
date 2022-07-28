@@ -9,7 +9,7 @@ import { MOBILE_SLICE_COUNT, DEFAULT_SLICE_COUNT } from '../../config/vars';
 import '../components/Posts/post.module.css';
 
 export function prepareCategories(categories: ICategory[] = []) {
-  const target = useRef(null);
+  // const target = useRef(null);
   const cb = (item: ICategory, idx: number) => (
     <li key={idx} className="post-category">
       {item?.name}
@@ -32,7 +32,7 @@ export function prepareCategories(categories: ICategory[] = []) {
         </Tooltip>
       }
     >
-      <li className="post-category-others" key={'others'} ref={target}>
+      <li className="post-category-others" key={'others'}>
         AND {categories.length - SLICE_COUNT} OTHER...
       </li>
     </OverlayTrigger>
