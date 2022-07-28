@@ -1,5 +1,5 @@
-import React, { LegacyRef, Ref, useRef } from 'react';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import React, { LegacyRef, Ref, useCallback, useRef, useState } from 'react';
+import { OverlayTrigger, Overlay, Tooltip } from 'react-bootstrap';
 
 import { isMobile } from './isMobile';
 import { ICategory } from '../interfaces/interfaces';
@@ -9,6 +9,7 @@ import '../components/Posts/post.module.css';
 
 export function prepareCategories(categories: ICategory[] = []) {
   const target = useRef<HTMLLIElement | null>(null);
+  const [show, setShow] = useState(false);
 
   const cb = (item: ICategory, idx: number) => (
     <li key={idx} className="post-category">
@@ -27,18 +28,21 @@ export function prepareCategories(categories: ICategory[] = []) {
       </Tooltip>
   ));
 
+  const toggleShow = () => setShow(!show);
+
   const othersEl = (
-    <OverlayTrigger
-      key="category-tooltip"
-      placement='bottom'
-      target={target.current}
-      trigger={['click']}
-      overlay={<ToolTip />}
-    >
-      <li className="post-category-others" key={'others'} ref={target}>
+    <React.Fragment key="category-tooltip">
+      <Overlay
+        show={show}
+        placement='bottom'
+        target={target.current}
+      >
+        <ToolTip />
+      </Overlay>
+      <li className="post-category-others" key={'others'} ref={target} onMouseEnter={toggleShow} onMouseLeave={toggleShow}>
         AND {categories.length - SLICE_COUNT} OTHER...
       </li>
-    </OverlayTrigger>
+    </React.Fragment>
   );
 
   const categoriesWithOther = categories.slice(0, SLICE_COUNT).map(cb).concat(othersEl);
