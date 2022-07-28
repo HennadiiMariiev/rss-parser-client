@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref, useRef } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { isMobile } from './isMobile';
@@ -8,6 +8,8 @@ import { MOBILE_SLICE_COUNT, DEFAULT_SLICE_COUNT } from '../../config/vars';
 import '../components/Posts/post.module.css';
 
 export function prepareCategories(categories: ICategory[] = []) {
+  // const ref = useRef(null);
+
   const cb = (item: ICategory, idx: number) => (
     <li key={idx} className="post-category">
       {item?.name}
@@ -16,17 +18,20 @@ export function prepareCategories(categories: ICategory[] = []) {
 
   const SLICE_COUNT = isMobile() ? MOBILE_SLICE_COUNT : DEFAULT_SLICE_COUNT;
 
-  const toolTip = (
-    <Tooltip id="category-tooltip">
-      {categories
-        .slice(SLICE_COUNT)
-        .map((item) => item?.name.toUpperCase())
-        .join(', ')}
-    </Tooltip>
-  );
+  const ToolTip =
+    React.forwardRef <
+    HTMLDivElement >
+    ((props, ref) => (
+      <Tooltip id="category-tooltip" {...props} ref={ref}>
+        {categories
+          .slice(SLICE_COUNT)
+          .map((item) => item?.name.toUpperCase())
+          .join(', ')}
+      </Tooltip>
+    ));
 
   const othersEl = (
-    <OverlayTrigger key="category-tooltip" overlay={toolTip}>
+    <OverlayTrigger key="category-tooltip" placement="bottom" overlay={<ToolTip />}>
       <li className="post-category-others">
         <span className="post-category-text">AND {categories.length - SLICE_COUNT} OTHER...</span>
       </li>
