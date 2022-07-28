@@ -22,7 +22,7 @@ export function prepareCategories(categories: ICategory[] = []) {
       key="category-tooltip"
       placement="bottom"
       overlay={(props) => (
-        <Tooltip id="category-tooltip" {...props} placement="bottom">
+        <Tooltip id="category-tooltip" {...props}>
           {categories
             .slice(SLICE_COUNT)
             .map((item) => item?.name.toUpperCase())
