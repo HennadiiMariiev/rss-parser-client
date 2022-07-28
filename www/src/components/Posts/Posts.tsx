@@ -45,7 +45,7 @@ function Posts({ isLoading, isFetching, posts = [], isError = false, error = nul
   }
 
   if (isLoading || isFetching) {
-    return <SkeletonList />;
+    return <div className='posts-wrapper'><SkeletonList /></div>;
   }
 
   if (!postsList?.length) {

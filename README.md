@@ -23,5 +23,5 @@ Clone it, install dependencies and run the APP.
 It will be better to improve next stuff in this app (so-called TODOs)
  - add SASS-preprocessor and improve css
  - refactor TypeScript interfaces
- - improve routing: there are only 2 routes in App (__/__ and __/login__) - I got some issues with es-build
+ - improve routing: there are only 2 routes in App (__/__, __/login__ and __/register__) - I got some issues with es-build
  - add eslint

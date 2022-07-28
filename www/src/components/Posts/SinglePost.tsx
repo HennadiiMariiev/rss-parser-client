@@ -45,7 +45,7 @@ function SinglePost({ post, setModal, setShowEditModal, isLoading = false }: ISi
         </div>
       )}
       <div className="post-left-wrapper">
-        <img src={post?.image} alt={post?.title} className="post-image" />
+        <img src={post?.image} alt={post?.title} className="post-image" loading="lazy" />
       </div>
       <div className="post-meta">
         <p className="post-date">{pubDateAndTime}</p>

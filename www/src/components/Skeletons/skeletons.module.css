@@ -29,6 +29,7 @@
 .skeleton-wrapper {
     display: flex;
     height: 600px;
+    max-width: 630px;
     margin-bottom: 1.25rem;
 }
 
