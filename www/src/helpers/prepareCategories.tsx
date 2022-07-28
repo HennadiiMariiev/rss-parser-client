@@ -27,11 +27,11 @@ export function prepareCategories(categories: ICategory[] = []) {
 
   const othersEl = (
     <OverlayTrigger key="category-tooltip" placement="bottom" overlay={toolTip}>
-      <li className="post-category-others" style={{ display: 'inline' }}>
-        <span className="post-category-text" style={{ display: 'inline' }}>
-          AND {categories.length - SLICE_COUNT} OTHER...
-        </span>
-      </li>
+      <div style={{ display: 'inline' }}>
+        <li className="post-category-others">
+          <span className="post-category-text">AND {categories.length - SLICE_COUNT} OTHER...</span>
+        </li>
+      </div>
     </OverlayTrigger>
   );
 
