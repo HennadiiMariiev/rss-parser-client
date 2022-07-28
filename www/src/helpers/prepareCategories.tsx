@@ -1,4 +1,4 @@
-import React, { LegacyRef, Ref } from 'react';
+import React, { LegacyRef, Ref, useRef } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { isMobile } from './isMobile';
@@ -8,6 +8,8 @@ import { MOBILE_SLICE_COUNT, DEFAULT_SLICE_COUNT } from '../../config/vars';
 import '../components/Posts/post.module.css';
 
 export function prepareCategories(categories: ICategory[] = []) {
+  const target = useRef<HTMLLIElement | null>(null);
+
   const cb = (item: ICategory, idx: number) => (
     <li key={idx} className="post-category">
       {item?.name}
@@ -29,9 +31,11 @@ export function prepareCategories(categories: ICategory[] = []) {
     <OverlayTrigger
       key="category-tooltip"
       placement='bottom'
+      target={target.current}
+      trigger={['click']}
       overlay={<ToolTip />}
     >
-      <li className="post-category-others" key={'others'}>
+      <li className="post-category-others" key={'others'} ref={target}>
         AND {categories.length - SLICE_COUNT} OTHER...
       </li>
     </OverlayTrigger>
