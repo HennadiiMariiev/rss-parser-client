@@ -31,7 +31,8 @@ instance.interceptors.response.use((config) => {
 }, async (error) => {
   const originalRequest = error.config;
   
-  if(error.response.status == 401 && error.config && !error.config._isRetry) {
+  console.log('originalRequest.config._isRetry', originalRequest.config._isRetry);
+  if(error.response.status == 401 && error.config && !originalRequest.config._isRetry) {
     originalRequest._isRetry = true;
     try {
           let token = localStorage.getItem('refreshToken') as string;

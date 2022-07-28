@@ -135,6 +135,7 @@
 .no-items {
     width: 300px;
     padding: 2rem 3rem;
+    margin-bottom: 1rem;
     font-size: 1.5rem;
     text-align: center;
 
@@ -176,10 +177,6 @@
     .post {
         max-width: calc(50% - 1rem);
         margin: 0.5rem!important;
-    }
-
-    .no-items {
-        margin: 0.5rem;
     }
 }
 

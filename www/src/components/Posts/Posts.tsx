@@ -44,7 +44,7 @@ function Posts({ isLoading, isFetching, posts = [], isError = false, error = nul
     setShowEditModal((prev) => ({...prev, show: false}));
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <SkeletonList />;
   }
 

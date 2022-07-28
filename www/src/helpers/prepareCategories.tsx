@@ -22,6 +22,7 @@ export function prepareCategories(categories: ICategory[] = []) {
     <OverlayTrigger
       key="category-tooltip"
       placement="bottom"
+      container={() => document.querySelector('body')}
       overlay={
         <Tooltip id="category-tooltip">
           {categories

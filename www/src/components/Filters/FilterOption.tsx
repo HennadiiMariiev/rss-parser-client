@@ -19,14 +19,8 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
   const { data, isLoading } = optionName === 'creators' ? useGetCreators() : useGetCategories();
   const [showModal, setShowModal] = useState(false);
   const { admin } = useAppContext();
-  let optionData: IOption[] = [];
-  const total: number = data?.data?.data?.total + 1 || 0;
-
-  useEffect(() => {
-    if (data?.data?.data?.[optionName]?.length) {
-      optionData = addNoOptionItem(data?.data?.data?.[optionName], optionName);
-    }
-  }, [data?.data?.data?.[optionName]]);
+  let optionData: IOption[] = addNoOptionItem(data?.data?.data?.[optionName], optionName);
+  const total: number = data?.data?.data?.total! + 1 || 0;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => onFilterItemSelect(e, option, setOption);
 
@@ -45,6 +39,10 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
 
       if (isLoading) {
         return <FilterSkeleton />;
+      }
+
+      if(!data?.data?.data?.[optionName]?.length) {
+        return null;
       }
 
       return (

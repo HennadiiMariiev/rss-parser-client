@@ -52,7 +52,7 @@
     width: 300px;
     z-index: 1000;
 
-    padding: 5px 10px;
+    padding: 4px 10px;
 
     border-right: 1px solid #49409c44;
     background-color: #49409c11;
@@ -74,7 +74,7 @@
 @media screen and (min-width: 768px) {
     .sideBar {
         display: flex;
-        padding: 5px 15px;
+        padding: 4px 16px;
     }
 
     .main {
