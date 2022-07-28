@@ -154,6 +154,12 @@
     font-size: 2rem;
 }
 
+.popover-header {
+   background-color: #49409caa!important;
+   color: #FAFAFA;
+   font-weight: 600;
+}
+
 @media screen  and (min-width: 576px){
     .post-title {
         font-size: 1rem;
