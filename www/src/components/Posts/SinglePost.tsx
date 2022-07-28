@@ -1,32 +1,49 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Button } from 'react-bootstrap';
 
 import { extractDateAndTime } from '../../helpers/extractDateAndTime';
+import { isMobile } from '../../helpers/isMobile';
 import { prepareCategories } from '../../helpers/prepareCategories';
 import { ISinglePostProps } from '../../interfaces/interfaces';
 import { useAppContext } from '../../providers/ContextProvider';
 
 import './post.module.css';
 
-function SinglePost({ post, setModal, setShowEditModal, isLoading = false}: ISinglePostProps) {
+function SinglePost({ post, setModal, setShowEditModal, isLoading = false }: ISinglePostProps) {
+  const isMobileViewport = isMobile();
   const admin = useAppContext()?.admin;
-  const categories = prepareCategories(post?.categories);
   const pubDateAndTime = extractDateAndTime(post?.publication_date);
+  const categories = useMemo(
+    () => prepareCategories(post?.categories, !!isMobileViewport),
+    [post?.categories, isMobileViewport]
+  );
 
   const onDeleteClick = () => {
-    setModal({show: true, _id: post._id});
-  }
+    setModal({ show: true, _id: post._id });
+  };
 
   const onEditClick = () => {
-    setShowEditModal({post, show: true });
-  }
+    setShowEditModal({ post, show: true });
+  };
 
   return (
     <li className="post">
-      {admin?.isLoggedIn && <div className='post-menu'>
-        <Button variant='light' size='sm' className='post-menu-button me-2' onClick={onDeleteClick} disabled={isLoading}>❌ Delete</Button>
-        <Button variant='light' size='sm' className='post-menu-button' onClick={onEditClick} disabled={isLoading}>✍🏻 Edit</Button>
-      </div>}
+      {admin?.isLoggedIn && (
+        <div className="post-menu">
+          <Button
+            variant="light"
+            size="sm"
+            className="post-menu-button me-2"
+            onClick={onDeleteClick}
+            disabled={isLoading}
+          >
+            ❌ Delete
+          </Button>
+          <Button variant="light" size="sm" className="post-menu-button" onClick={onEditClick} disabled={isLoading}>
+            ✍🏻 Edit
+          </Button>
+        </div>
+      )}
       <div className="post-left-wrapper">
         <img src={post?.image} alt={post?.title} className="post-image" />
       </div>
