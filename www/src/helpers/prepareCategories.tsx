@@ -21,14 +21,14 @@ export function prepareCategories(categories: ICategory[] = []) {
     <OverlayTrigger
       key="category-tooltip"
       placement="bottom"
-      overlay={
-        <Tooltip id="category-tooltip">
+      overlay={(props) => (
+        <Tooltip id="category-tooltip" {...props} placement="bottom">
           {categories
             .slice(SLICE_COUNT)
             .map((item) => item?.name.toUpperCase())
             .join(', ')}
         </Tooltip>
-      }
+      )}
     >
       <li className="post-category-others" key={'others'}>
         AND {categories.length - SLICE_COUNT} OTHER...
