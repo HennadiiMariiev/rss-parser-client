@@ -111,6 +111,10 @@
     cursor: pointer;
 }
 
+.post-category-text {
+    color: inherit;
+}
+
 .post-link {
     display: inline;
 }
