@@ -3,6 +3,9 @@
     box-sizing: border-box;
 }
 
+body {
+    position: relative;
+}
 
 p, h1, h2, h3, h4, ul, li, a {
     margin: 0;

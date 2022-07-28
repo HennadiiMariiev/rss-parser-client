@@ -1,6 +1,5 @@
-import React from 'react';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import React, { LegacyRef, Ref } from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { isMobile } from './isMobile';
 import { ICategory } from '../interfaces/interfaces';
@@ -17,18 +16,20 @@ export function prepareCategories(categories: ICategory[] = []) {
 
   const SLICE_COUNT = isMobile() ? MOBILE_SLICE_COUNT : DEFAULT_SLICE_COUNT;
 
+  const ToolTip = React.forwardRef((props, ref) => (
+      <Tooltip id="category-tooltip" {...props} ref={ref as Ref<HTMLDivElement>}>
+        {categories
+          .slice(SLICE_COUNT)
+          .map((item) => item?.name.toUpperCase())
+          .join(', ')}
+      </Tooltip>
+  ));
+
   const othersEl = (
     <OverlayTrigger
       key="category-tooltip"
-      placement="bottom"
-      overlay={(props) => (
-        <Tooltip id="category-tooltip" {...props}>
-          {categories
-            .slice(SLICE_COUNT)
-            .map((item) => item?.name.toUpperCase())
-            .join(', ')}
-        </Tooltip>
-      )}
+      placement='bottom'
+      overlay={<ToolTip />}
     >
       <li className="post-category-others" key={'others'}>
         AND {categories.length - SLICE_COUNT} OTHER...
