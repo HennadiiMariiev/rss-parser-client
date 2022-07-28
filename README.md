@@ -1,7 +1,7 @@
 # RSS Parser Client 📰
 
 ## General 🔍
-This is a simple client-side React application for viewing and administration parsed [Lifehacker RSS](https://lifehacker.com/rss) feed. App is bundled with [es-build](https://github.com/evanw/esbuild) and based on React with TypeScript. The back-end server-side app is located in my GitHub right here [rss-parser-server](https://github.com/HennadiiMariiev/rss-parser-server).
+This is a simple client-side React application for viewing and administration parsed [Lifehacker RSS](https://lifehacker.com/rss) feed. App is bundled with [es-build](https://github.com/evanw/esbuild) and based on React with TypeScript. The back-end server-side application code is located in my GitHub right here [rss-parser-server](https://github.com/HennadiiMariiev/rss-parser-server).
 
 ## App Stack
 To provide it main functionality this app uses the following packages/libraries :
