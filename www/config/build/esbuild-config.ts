@@ -21,6 +21,8 @@ const config: BuildOptions = {
   entryNames: '[dir]/bundle.[name]-[hash]',
   bundle: true,
   minify: isProd,
+  minifySyntax: isProd,
+  minifyWhitespace: isProd,
   metafile: true,
   sourcemap: isDev,
   loader: {

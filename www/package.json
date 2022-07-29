@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./config/build/esbuild-dev.ts",
-    "build": "cross-env MODE=production ts-node ./config/build/esbuild-prod.ts"
+    "build": "cross-env REACT_APP_MODE=production ts-node ./config/build/esbuild-prod.ts"
   },
   "keywords": [],
   "author": "",
