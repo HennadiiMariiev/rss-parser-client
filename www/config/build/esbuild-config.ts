@@ -25,6 +25,7 @@ const config: BuildOptions = {
   minifyWhitespace: isProd,
   metafile: true,
   sourcemap: isDev,
+  treeShaking: isProd,
   loader: {
     '.png': 'file',
     '.svg': 'file',
