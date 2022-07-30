@@ -1,6 +1,8 @@
 import { ListChildComponentProps } from 'react-window';
 import React, { ComponentType } from 'react';
 import { UseFormHandleSubmit, UseFormRegister, SubmitHandler, FieldErrorsImpl, DeepRequired } from 'react-hook-form';
+import { UseMutationResult } from 'react-query';
+import { AxiosResponse } from 'axios';
 
 export interface IHtmlPluginOptions {
   template?: string;
@@ -283,6 +285,15 @@ export interface IDialogModalProps {
   onCloseModal: () => void;
   onConfirm?: () => void;
   post?: IPost;
+}
+
+export interface IEditPostModalProps {
+  editModal: {
+    show: boolean,
+    post: IPost | undefined,
+  };
+  onCloseModal: () => void;
+  updatePost: UseMutationResult<AxiosResponse<IAddPostResponse, any>, unknown, INewPostFormValues, unknown>
 }
 
 export interface IEditOptionModalProps {

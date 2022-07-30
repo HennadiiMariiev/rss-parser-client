@@ -16,7 +16,7 @@ import './filters.module.css';
 
 function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
   const emoji = optionName === 'creators' ? '👥' : '📚';
-  const { data, isLoading } = optionName === 'creators' ? useGetCreators() : useGetCategories();
+  const { data, isLoading, isError } = optionName === 'creators' ? useGetCreators() : useGetCategories();
   const [showModal, setShowModal] = useState(false);
   const { admin } = useAppContext();
   let optionData: IOption[] = addNoOptionItem(data?.data?.data?.[optionName], optionName);
@@ -37,12 +37,8 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
         });
       }, [option]);
 
-      if (isLoading) {
+      if (isLoading && !isError) {
         return <FilterSkeleton />;
-      }
-
-      if(!data?.data?.data?.[optionName]?.length) {
-        return null;
       }
 
       return (
@@ -68,7 +64,7 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
         </List>
       );
     },
-    [data?.data?.data?.[optionName]]
+    [data?.data?.data?.[optionName], isLoading, isError]
   );
 
   return (

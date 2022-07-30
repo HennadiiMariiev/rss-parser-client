@@ -17,13 +17,13 @@ function PostModalMarkup({
   OptionsList,
   register,
   errors,
-  isEdit = false
+  isEdit = false,
 }: IPostModalMarkupProps) {
   return (
     <Modal show={show} onHide={onHide} backdrop="static" centered>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header closeButton>
-          <Modal.Title>{isEdit ? "Edit post" : "New post"}</Modal.Title>
+          <Modal.Title>{isEdit ? 'Edit post' : 'New post'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-2 w-100" controlId="post-title">
@@ -43,7 +43,7 @@ function PostModalMarkup({
               rows={3}
               placeholder="Description"
               aria-describedby="post-description"
-              {...register('description', { required: true, minLength: 10, maxLength: 255 })}
+              {...register('description', { required: true, minLength: 10, maxLength: 1000 })}
             />
             {errors?.description && <WarningText text={`description ${errors?.description?.message}`} />}
           </Form.Group>
@@ -53,7 +53,7 @@ function PostModalMarkup({
             <Form.Control
               placeholder="Link to related image"
               aria-describedby="post-image"
-              {...register('image', { required: true, minLength: 10, maxLength: 255, pattern: imageUrlPattern })}
+              {...register('image', { required: true, minLength: 10, maxLength: 500, pattern: imageUrlPattern })}
             />
             {errors?.image && <WarningText text={`image link ${errors?.image?.message}`} />}
           </Form.Group>
@@ -63,7 +63,7 @@ function PostModalMarkup({
             <Form.Control
               placeholder="https://lifehacker.com/..."
               aria-describedby="post-link"
-              {...register('link', { required: true, maxLength: 255, pattern: LHLinkPattern })}
+              {...register('link', { required: true, maxLength: 500, pattern: LHLinkPattern })}
             />
             {errors?.link && <WarningText text="post link" />}
           </Form.Group>

@@ -7,49 +7,59 @@ import NoItems from './NoItems';
 import DialogModal from '../Modal/DialogModal';
 
 import './post.module.css';
-import { useDeleteSinglePost } from '../../api/posts';
+import { useDeleteSinglePost, useUpdatePost } from '../../api/posts';
 import { useAppContext } from '../../providers/ContextProvider';
-import { showError } from '../../helpers/messageHelpers';
+import { showError, showInfo } from '../../helpers/messageHelpers';
 import EditPostModal from '../Modal/EditPostModal';
+import { extractAddErrors, getErrorMessage } from '../../helpers/getErrorMessage';
 
 function Posts({ isLoading, isFetching, posts = [], isError = false, error = null }: IPostsProps) {
   const {setMessage} = useAppContext();
 
   const [modal, setModal] = useState({show: false, _id: ""});
-  const [showEditModal, setShowEditModal] = useState<{show: boolean, post: IPost | undefined}>({show: false, post: undefined});
-  const postsList = useMemo(() => posts?.map((post) => <SinglePost key={post?._id} post={post} setModal={setModal} setShowEditModal={setShowEditModal} isLoading={isLoading || isFetching}/>), [posts, isLoading, isFetching]);
-  const {mutate: deletePost, isError: isDeleteError, error: deleteError, isSuccess} = useDeleteSinglePost();
+  const [editModal, setEditModal] = useState<{show: boolean, post: IPost | undefined}>({show: false, post: undefined});
+  const postsList = useMemo(() => posts?.map((post) => <SinglePost key={post?._id} post={post} setModal={setModal} setShowEditModal={setEditModal} isLoading={isLoading || isFetching}/>), [posts, isLoading, isFetching]);
+  const deletePost = useDeleteSinglePost();
+  const updatePost = useUpdatePost();
 
   useEffect(() => {
-    if(isSuccess) {
+    if(deletePost.isSuccess) {
       setModal({show: false, _id: ""});
     }
-    if(isDeleteError && deleteError) {
-      const error = deleteError as IResponseError;
+    if(deletePost.isError && deletePost.error) {
+      const error = deletePost.error as IResponseError;
       showError(setMessage, error.response?.data?.message)
     }
-  }, [isSuccess, isDeleteError, setModal]);
+  }, [deletePost.isSuccess, deletePost.isError, setModal]);
+
+  useEffect(() => {
+    if(updatePost.isSuccess) {
+      showInfo(setMessage, "Post has been updated successfully 👌")
+      onCloseEditModal();
+    }
+    if(updatePost.isError) {
+      const errors = extractAddErrors(updatePost);
+      const message = getErrorMessage(errors);
+      showError(setMessage, message);
+    }
+  }, [updatePost.isSuccess, updatePost.isError]);
 
   const onPostDelete = () => {
     if(modal._id) {
-      deletePost(modal._id);
+      deletePost.mutate(modal._id);
     }
   }
 
-  const onCloseModal =() => {
+  function onCloseModal () {
     setModal((prev) => ({...prev, show: false}));
   }
 
-  const onCloseEditModal =() => {
-    setShowEditModal((prev) => ({...prev, show: false}));
+  function onCloseEditModal () {
+    setEditModal((prev) => ({...prev, show: false}));
   }
 
   if (isLoading || isFetching) {
     return <div className='posts-wrapper'><SkeletonList /></div>;
-  }
-
-  if (!postsList?.length) {
-    return <NoItems />;
   }
 
   if (isError && error) {
@@ -60,11 +70,19 @@ function Posts({ isLoading, isFetching, posts = [], isError = false, error = nul
     );
   }
 
+  if (!postsList?.length) {
+    return (
+      <div className="posts-wrapper">
+        <NoItems />
+      </div>
+    );
+  }
+
   return (
     <React.Fragment>
       <ul className="posts-wrapper">{postsList}</ul>
       <DialogModal showModal={modal.show} onCloseModal={onCloseModal} onConfirm={onPostDelete}/>
-      <EditPostModal showModal={showEditModal.show} onCloseModal={onCloseEditModal} post={showEditModal.post} />
+      <EditPostModal editModal={editModal} onCloseModal={onCloseEditModal} updatePost={updatePost}/>
     </React.Fragment>
   );
 }

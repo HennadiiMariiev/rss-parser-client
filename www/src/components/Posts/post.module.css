@@ -6,7 +6,7 @@
     
     width: 100%;
     max-width: 1500px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     padding: 0;
 }
 
@@ -140,7 +140,6 @@
 .no-items {
     width: 300px;
     padding: 2rem 3rem;
-    margin-bottom: 1rem;
     font-size: 1.5rem;
     text-align: center;
 

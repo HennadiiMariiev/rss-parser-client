@@ -4,43 +4,19 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useGetCategories } from '../../api/categories';
 import { useGetCreators } from '../../api/creators';
 import OptionsModalList from './OptionsModalList';
-import { IDialogModalProps, INewPostFormValues } from '../../interfaces/interfaces';
+import { IEditPostModalProps, INewPostFormValues } from '../../interfaces/interfaces';
 import PostModalMarkup from './PostModalMarkup';
-import { useUpdatePost } from '../../api/posts';
-import { useAppContext } from '../../providers/ContextProvider';
-import { extractAddErrors, getErrorMessage } from '../../helpers/getErrorMessage';
-import { showError, showInfo } from '../../helpers/messageHelpers';
 import { addValuesOnEdit } from '../../helpers/addValuesOnEditPost';
 
-function EditPostModal({ showModal, onCloseModal, post }: IDialogModalProps) {
-  const [loading, setLoading] = useState(false);
+function EditPostModal({ editModal, onCloseModal, updatePost }: IEditPostModalProps) {
   const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
-  const {setMessage} = useAppContext();
-  const updatePost = useUpdatePost();
   const { register, handleSubmit, formState: { errors }, setValue, getValues, clearErrors, reset } = useForm<INewPostFormValues>();
   const { data: creatorsData } = useGetCreators();
   const { data: categoriesData } = useGetCategories();
 
   useEffect(() => {
-    addValuesOnEdit(setValue, post);
-  }, [post]);
-
-  useEffect(() => {
-    setLoading(updatePost.isLoading);
-  }, [updatePost.isLoading, setLoading]);
-
-  useEffect(() => {
-    if(updatePost.isSuccess) {
-      reset();
-      showInfo(setMessage, "Post has been added successfully 👌")
-      onCloseModal();
-    }
-    if(updatePost.isError) {
-      const errors = extractAddErrors(updatePost);
-      const message = getErrorMessage(errors);
-      showError(setMessage, message);
-    }
-  }, [updatePost.isSuccess, updatePost.isError]);
+    addValuesOnEdit(setValue, editModal.post);
+  }, [editModal.post]);
 
   const creatorsOptions = useMemo(() => {
     const creators = creatorsData?.data?.data?.creators;
@@ -60,17 +36,17 @@ function EditPostModal({ showModal, onCloseModal, post }: IDialogModalProps) {
     useEffect(() => setCheckedOptions(checked), [checked]);
 
     useEffect(() =>  {
-        if(post) {
-            setChecked(post?.categories.map((item) => item._id));
+        if(editModal.post) {
+            setChecked(editModal.post?.categories.map((item) => item._id));
         }
-    }, [post, setChecked]);
+    }, [editModal.post, setChecked]);
 
     return <OptionsModalList data={data!} checked={checked} setChecked={setChecked} optionName='category' height={200} />;
-  }, [categoriesData?.data?.data?.categories, post]);
+  }, [categoriesData?.data?.data?.categories, editModal.post]);
 
   const onConfirmClick : SubmitHandler<INewPostFormValues> = (_) => {
-    setValue('_id', post?._id);
-    setValue('publication_date', post?.publication_date);
+    setValue('_id', editModal.post?._id);
+    setValue('publication_date', editModal.post?.publication_date);
     setValue('categories', checkedOptions);
     updatePost.mutate(getValues());
   };
@@ -82,9 +58,9 @@ function EditPostModal({ showModal, onCloseModal, post }: IDialogModalProps) {
 
   return (
     <PostModalMarkup 
-      show={showModal} 
+      show={editModal.show} 
       onHide={onHide} 
-      loading={loading} 
+      loading={updatePost.isLoading} 
       OptionsList={OptionsList} 
       creatorsOptions={creatorsOptions} 
       register={register} 
