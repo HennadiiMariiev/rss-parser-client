@@ -7,8 +7,11 @@ import { isRegisterPage } from '../../helpers/isRegisterPage';
 import { IFormMarkupProps } from '../../interfaces/interfaces';
 import SignButton from './SignButton';
 
+const NAME_HELPER_TEXT =
+  'Your name must be 1-50 characters long, contain uppercase and lowercase letters, whitespace, dash, dot symbols. Example: "John Smith"';
+
 const PASSWORD_HELPER_TEXT =
-  'Your password must be 6-12 characters long, contain 1 uppercase, 1 lowercase letter, number, and special character (@$!%*?&.,_-).';
+  'Your password must be 6-12 characters long, contain 1 uppercase, 1 lowercase letter, number, and special character (@$!%*?&.,_-). Example: "Qwerty123-"';
 
 function WarningText({ text }: { text: string }): JSX.Element {
   return <p className="mt-1 mb-1 small text-danger">Please provide a valid {text}.</p>;
@@ -41,6 +44,11 @@ function FormMarkup({
             {...register('name', { required: true, maxLength: 30, pattern: namePattern })}
           />
           {errors?.name && <WarningText text="name" />}
+          {isRegistration && (
+            <Form.Text id="nameHelpBlock" muted>
+              {NAME_HELPER_TEXT}
+            </Form.Text>
+          )}
         </Form.Group>
       )}
       <Form.Group className="mb-3 w-100" controlId="formEmail">
