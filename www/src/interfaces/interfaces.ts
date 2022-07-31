@@ -56,7 +56,7 @@ export interface IOptionsListProps {
   optionData: IOption[];
   height?: number;
   children: ComponentType<ListChildComponentProps<IOption[]>>;
-  listRef: MutableRefObject<FixedSizeList<any> | null>;
+  listRef?: MutableRefObject<FixedSizeList<any> | null>;
 }
 
 export interface IOptionsItemProps {
