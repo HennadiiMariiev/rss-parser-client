@@ -2,7 +2,6 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 import { IOptionsModalItemProps } from '../../interfaces/interfaces';
-import { prepareName } from '../../helpers/prepareName';
 
 function OptionsModalItem({ style, _id, optionName, name, checked, setChecked }: IOptionsModalItemProps) {
   return (
@@ -10,7 +9,7 @@ function OptionsModalItem({ style, _id, optionName, name, checked, setChecked }:
       <Form.Check
         inline
         value={_id}
-        label={prepareName(name)}
+        label={name}
         name={optionName}
         type="checkbox"
         id={`${optionName}-modal-${_id}`}
