@@ -1,5 +1,5 @@
-import { ListChildComponentProps } from 'react-window';
-import React, { ComponentType } from 'react';
+import { FixedSizeList, ListChildComponentProps } from 'react-window';
+import React, { ComponentType, MutableRefObject } from 'react';
 import { UseFormHandleSubmit, UseFormRegister, SubmitHandler, FieldErrorsImpl, DeepRequired } from 'react-hook-form';
 import { UseMutationResult } from 'react-query';
 import { AxiosResponse } from 'axios';
@@ -56,6 +56,7 @@ export interface IOptionsListProps {
   optionData: IOption[];
   height?: number;
   children: ComponentType<ListChildComponentProps<IOption[]>>;
+  listRef: MutableRefObject<FixedSizeList<any> | null>;
 }
 
 export interface IOptionsItemProps {

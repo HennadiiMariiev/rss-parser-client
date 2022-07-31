@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, InputGroup, Form } from 'react-bootstrap';
 
 import { useAppContext } from '../../providers/ContextProvider';
@@ -13,8 +13,10 @@ import FilterSkeleton from '../Skeletons/FilterSkeleton';
 import List from './OptionsList';
 
 import './filters.module.css';
+import { FixedSizeList } from 'react-window';
 
 function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
+  const listRef = useRef<FixedSizeList | null>(null);
   const emoji = optionName === 'creators' ? '👥' : '📚';
   const { data, isLoading, isError } = optionName === 'creators' ? useGetCreators() : useGetCategories();
   const [showModal, setShowModal] = useState(false);
@@ -22,10 +24,10 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
   let optionData: IOption[] = addNoOptionItem(data?.data?.data?.[optionName], optionName);
   const total: number = data?.data?.data?.total! + 1 || 0;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => onFilterItemSelect(e, option, setOption);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => onFilterItemSelect(e, option, setOption, listRef, index);
 
   const OptionsList = useCallback(
-    ({ option }: { option: string[] }) => {
+    () => {
       const indexes = option.map((item) => optionData.findIndex(({ _id }: { _id: string }) => _id === item));
       const [checked, setChecked] = useState(Array.from({ length: total }, (_, idx) => indexes.includes(idx)));
 
@@ -42,7 +44,7 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
       }
 
       return (
-        <List total={total} optionData={optionData}>
+        <List total={total} optionData={optionData} listRef={listRef}>
           {({ data, index, style }) => {
             if (!data.length) {
               return null;
@@ -64,7 +66,7 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
         </List>
       );
     },
-    [data?.data?.data?.[optionName], isLoading, isError]
+    [data?.data?.data?.[optionName], isLoading, isError, option]
   );
 
   return (
@@ -84,7 +86,7 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
             Reset
           </Button>
         </div>
-        <OptionsList option={option} />
+        <OptionsList />
       </InputGroup>
       <NewOptionModal
         showModal={showModal}

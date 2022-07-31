@@ -4,9 +4,10 @@ import { FixedSizeList } from 'react-window';
 import { IOptionsListProps } from '../../interfaces/interfaces';
 import { inlineListStyles } from './inlineListStyle';
 
-function List({ total, optionData, children, height = 250 }: IOptionsListProps) {
+function List({ total, optionData, children, height = 250, listRef }: IOptionsListProps) {
   return (
     <FixedSizeList
+      ref={el => (listRef.current = el)}
       innerElementType="ul"
       height={height}
       width={'100%'}
