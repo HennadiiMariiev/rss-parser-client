@@ -46,8 +46,11 @@ function Home() {
   const total = data?.data?.data?.pagination?.total;
 
   useEffect(() => {
-    if (total && total >= 0) {
-      setPagination((prev) => ({ ...prev, pageCount: Math.ceil(total / pagination.limit), total }));
+    if (typeof total === 'number') {
+      const totalValue = total > 0 ? total : 1;
+      setPagination((prev) => ({ ...prev, pageCount: Math.ceil(totalValue / pagination.limit), totalValue }));
+    } else {
+      setPagination((prev) => ({ ...prev, pageCount: 1, total: 0 }));
     }
   }, [total, pagination.limit, setPagination]);
 

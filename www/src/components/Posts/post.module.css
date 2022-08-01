@@ -138,8 +138,9 @@
 }
 
 .no-items {
-    width: 300px;
-    padding: 2rem 3rem;
+    width: 290px;
+    margin: 0.5rem;
+    padding: 3rem;
     font-size: 1.5rem;
     text-align: center;
 
