@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { isMobile } from '../helpers/isMobile';
@@ -13,14 +13,13 @@ import Logo from './NavBar/Logo';
 import UserMenu from './NavBar/UserMenu';
 import Loader from './Loader/Loader';
 import useDebounce from '../hooks/useDebounce';
+import Filters from './Filters/Filters';
+import Posts from './Posts/Posts';
+import Paginator from './Pagination/Paginator';
+import MenuButton from './NavBar/MenuButton';
+import MobileMenu from './NavBar/MobileMenu';
 
 import '../index.css';
-
-const Filters = lazy(() => import('./Filters/Filters'));
-const Posts = lazy(() => import('./Posts/Posts'));
-const Paginator = lazy(() => import('./Pagination/Paginator'));
-const MenuButton = lazy(() => import('./NavBar/MenuButton'));
-const MobileMenu = lazy(() => import('./NavBar/MobileMenu'));
 
 function Home() {
   const isMobileViewport = isMobile();

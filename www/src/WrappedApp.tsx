@@ -6,11 +6,13 @@ import App from './App';
 
 function WrappedApp() {
   return (
-    <QueryProvider>
+    <React.StrictMode>
+      <QueryProvider>
         <ContextProvider>
             <App />
         </ContextProvider>
-    </QueryProvider>
+      </QueryProvider>
+    </React.StrictMode>
   )
 }
 
