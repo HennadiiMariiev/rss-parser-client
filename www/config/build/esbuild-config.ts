@@ -21,9 +21,9 @@ const config: BuildOptions = {
   entryNames: '[dir]/bundle.[name]-[hash]',
   bundle: true,
   minify: isProd,
-  drop: ['debugger', 'console'],
-  legalComments: 'none',
-  metafile: false,
+  minifySyntax: isProd,
+  minifyWhitespace: isProd,
+  metafile: true,
   sourcemap: isDev,
   treeShaking: isProd,
   loader: {

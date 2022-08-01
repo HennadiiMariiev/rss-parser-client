@@ -2,4 +2,10 @@ import ESBuild from 'esbuild';
 
 import config from './esbuild-config';
 
-ESBuild.build({ ...config }).catch(console.log).finally(() => process.exit(0));
+ESBuild.build({ ...config }).then((result) => {
+    const { errors, warnings, metafile, stop } = result;
+    const outputs = metafile?.outputs!;
+    console.log('result: ', {errors, warnings, outputs, stop});
+    process.exit(0);
+  })
+  .catch(console.log);
