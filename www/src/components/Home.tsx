@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { isMobile } from '../helpers/isMobile';
@@ -20,13 +20,13 @@ import MenuButton from './NavBar/MenuButton';
 import MobileMenu from './NavBar/MobileMenu';
 
 import '../index.css';
+import { useAppContext } from '../providers/ContextProvider';
 
 function Home() {
   const isMobileViewport = isMobile();
+  const { creators, categories } = useAppContext();
   const [showMenu, setShowMenu] = useState(false);
   const [pagination, setPagination] = useState<IPagination>({ page: 1, pageCount: 1, total: 0, limit: POSTS_LIMIT });
-  const [creators, setCreators] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('publication_date');
   const [sortOrder, setSortOrder] = useState('desc');
@@ -46,7 +46,11 @@ function Home() {
 
   useEffect(() => {
     if (total) {
-      setPagination((prev) => ({ ...prev, pageCount: total > 0  ? Math.ceil(total / pagination.limit) : 1, total: total || 0 }));
+      setPagination((prev) => ({
+        ...prev,
+        pageCount: total > 0 ? Math.ceil(total / pagination.limit) : 1,
+        total: total || 0,
+      }));
     } else {
       setPagination((prev) => ({ ...prev, pageCount: 1, total: 0 }));
     }
@@ -70,10 +74,6 @@ function Home() {
               setSortBy={setSortBy}
               setSortOrder={setSortOrder}
               setSearch={setSearch}
-              setCreators={setCreators}
-              setCategories={setCategories}
-              creators={creators}
-              categories={categories}
               pagination={pagination}
               setPagination={setPagination}
             />
@@ -99,10 +99,6 @@ function Home() {
               setSortBy={setSortBy}
               setSortOrder={setSortOrder}
               setSearch={setSearch}
-              setCreators={setCreators}
-              setCategories={setCategories}
-              creators={creators}
-              categories={categories}
               pagination={pagination}
               setPagination={setPagination}
             />

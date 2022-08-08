@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, InputGroup, Form } from 'react-bootstrap';
 
 import { useAppContext } from '../../providers/ContextProvider';
@@ -13,38 +13,50 @@ import FilterSkeleton from '../Skeletons/FilterSkeleton';
 import List from './OptionsList';
 
 import './filters.module.css';
-import { FixedSizeList } from 'react-window';
 
-function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
-  const listRef = useRef<FixedSizeList | null>(null);
+function FilterOption({ optionName }: IFilterOptionProps) {
   const emoji = optionName === 'creators' ? '👥' : '📚';
-  const { data, isLoading, isError } = optionName === 'creators' ? useGetCreators() : useGetCategories();
+  const { admin, setCreators, setCategories } = useAppContext();
   const [showModal, setShowModal] = useState(false);
-  const { admin } = useAppContext();
+  const { data, isLoading, isError, refetch } = optionName === 'creators' ? useGetCreators() : useGetCategories();
   let optionData: IOption[] = addNoOptionItem(data?.data?.data?.[optionName], optionName);
   const total: number = data?.data?.data?.total! + 1 || 0;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => onFilterItemSelect(e, option, setOption, listRef, index);
+  const onReset = () => {
+    optionName === 'creators' ? setCreators([]) : setCategories([]);
+    // TODO: refactor, cause it's bad practice
+    // made this for causing re-render of
+    data?.data?.data?.[optionName].push(null);
+    refetch();
+  }
 
   const OptionsList = useCallback(
     () => {
-      const indexes = option.map((item) => optionData.findIndex(({ _id }: { _id: string }) => _id === item));
+      const {creators, categories} = useAppContext();
+      const indexes = optionName === 'creators' 
+          ? creators.map((item) => optionData.findIndex(({ _id }: { _id: string }) => _id === item)) 
+          : categories.map((item) => optionData.findIndex(({ _id }: { _id: string }) => _id === item));
       const [checked, setChecked] = useState(Array.from({ length: total }, (_, idx) => indexes.includes(idx)));
 
       useEffect(() => {
-        if (!option.length) setChecked((prev) => prev.map(() => false));
         setChecked((prev) => {
           indexes.forEach((idx) => (prev[idx] = true));
           return prev;
         });
-      }, [option]);
+      }, []);
+
+      const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        optionName === 'creators' ?
+          onFilterItemSelect(e, creators, setCreators) :
+          onFilterItemSelect(e, categories, setCategories);
+      };
 
       if (isLoading && !isError) {
         return <FilterSkeleton />;
       }
 
       return (
-        <List total={total} optionData={optionData} listRef={listRef}>
+        <List total={total} optionData={optionData}>
           {({ data, index, style }) => {
             if (!data.length) {
               return null;
@@ -66,7 +78,7 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
         </List>
       );
     },
-    [data?.data?.data?.[optionName], isLoading, isError, option]
+    [data?.data?.data?.[optionName], isLoading, isError]
   );
 
   return (
@@ -82,7 +94,7 @@ function FilterOption({ setOption, option, optionName }: IFilterOptionProps) {
               ✍🏻 Edit
             </Button>
           )}
-          <Button variant="light" size="sm" onClick={() => setOption([])}>
+          <Button variant="light" size="sm" onClick={onReset}>
             Reset
           </Button>
         </div>

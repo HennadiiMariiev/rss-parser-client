@@ -7,8 +7,12 @@ export const defaultContextValue = {
       isError: false,
       show: false,
     },
+    creators: [],
+    categories: [],
     setAdmin: () => {},
     setMessage: () => {},
+    setCreators: () => {},
+    setCategories: () => {},
   };
 
 export const defaultMessageValue = {

@@ -1,5 +1,5 @@
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
-import React, { ComponentType, MutableRefObject } from 'react';
+import { ListChildComponentProps } from 'react-window';
+import React, { ComponentType } from 'react';
 import { UseFormHandleSubmit, UseFormRegister, SubmitHandler, FieldErrorsImpl, DeepRequired } from 'react-hook-form';
 import { UseMutationResult } from 'react-query';
 import { AxiosResponse } from 'axios';
@@ -46,8 +46,6 @@ export interface ICreator {
 }
 
 export interface IFilterOptionProps {
-  setOption: Function;
-  option: string[];
   optionName: string;
 }
 
@@ -56,7 +54,6 @@ export interface IOptionsListProps {
   optionData: IOption[];
   height?: number;
   children: ComponentType<ListChildComponentProps<IOption[]>>;
-  listRef?: MutableRefObject<FixedSizeList<any> | null>;
 }
 
 export interface IOptionsItemProps {
@@ -104,10 +101,6 @@ export interface IFiltersProps {
   setSortBy: Function;
   setSortOrder: Function;
   setSearch: Function;
-  creators: string[];
-  categories: string[];
-  setCategories: Function;
-  setCreators: Function;
   pagination: IPagination;
   setPagination: Function;
 }
@@ -225,6 +218,9 @@ export interface IAdminState {
 
 export interface IAppContext {
   admin: IAdminState;
+  message: IMessage;
+  creators: string[];
+  categories: string[];
   setAdmin: React.Dispatch<
     React.SetStateAction<{
       name: string,
@@ -236,7 +232,8 @@ export interface IAppContext {
       isEmailVerified: boolean,
     }>
   >;
-  message: IMessage;
+  setCreators: React.Dispatch<React.SetStateAction<string[]>>;
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
   setMessage: React.Dispatch<React.SetStateAction<IMessage>>
 }
 

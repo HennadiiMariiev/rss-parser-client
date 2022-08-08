@@ -12,10 +12,6 @@ function Filters({
   setSortBy,
   setSortOrder,
   setSearch,
-  setCreators,
-  setCategories,
-  creators,
-  categories,
   pagination,
   setPagination,
 }: IFiltersProps) {
@@ -85,8 +81,8 @@ function Filters({
         <Form.Control placeholder="Search..." aria-label="Search" aria-describedby="search" />
       </InputGroup>
 
-      <FilterOption setOption={setCreators} option={creators} optionName="creators" />
-      <FilterOption setOption={setCategories} option={categories} optionName="categories" />
+      <FilterOption optionName="creators" />
+      <FilterOption optionName="categories" />
 
       <NewPostModal showModal={showModal} onCloseModal={() => setShowModal(false)} />
     </div>

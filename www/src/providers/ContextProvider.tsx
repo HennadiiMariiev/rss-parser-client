@@ -13,6 +13,8 @@ export const useAppContext = () => {
 export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [admin, setAdmin] = useState<IAdminState>(defaultAdminValue);
   const [message, setMessage] = useState<IMessage>(defaultMessageValue);
+  const [creators, setCreators] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
     if(message.text !== "") {
@@ -21,7 +23,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   }, [message.text]);
 
   return (
-    <AppContext.Provider value={{ admin, setAdmin, message, setMessage, }}>
+    <AppContext.Provider value={{ admin, setAdmin, message, setMessage, creators, setCreators, categories, setCategories}}>
       {children}
       <ToastMessage />
     </AppContext.Provider>
