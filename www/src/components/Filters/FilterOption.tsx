@@ -18,68 +18,74 @@ function FilterOption({ optionName }: IFilterOptionProps) {
   const emoji = optionName === 'creators' ? '👥' : '📚';
   const { admin, setCreators, setCategories } = useAppContext();
   const [showModal, setShowModal] = useState(false);
-  const { data, isLoading, isError, refetch } = optionName === 'creators' ? useGetCreators() : useGetCategories();
-  let optionData: IOption[] = addNoOptionItem(data?.data?.data?.[optionName], optionName);
+  const { data, isLoading, isError, refetch, isFetching } =
+    optionName === 'creators' ? useGetCreators() : useGetCategories();
+  let optionData: IOption[] = addNoOptionItem(
+    data?.data?.data?.[optionName],
+    optionName,
+  );
   const total: number = data?.data?.data?.total! + 1 || 0;
 
   const onReset = () => {
     optionName === 'creators' ? setCreators([]) : setCategories([]);
-    // TODO: refactor, cause it's bad practice
-    // made this for causing re-render of
-    data?.data?.data?.[optionName].push(null);
+    // call refetch for uncheck all checkboxes in list
     refetch();
-  }
+  };
 
-  const OptionsList = useCallback(
-    () => {
-      const {creators, categories} = useAppContext();
-      const indexes = optionName === 'creators' 
-          ? creators.map((item) => optionData.findIndex(({ _id }: { _id: string }) => _id === item)) 
-          : categories.map((item) => optionData.findIndex(({ _id }: { _id: string }) => _id === item));
-      const [checked, setChecked] = useState(Array.from({ length: total }, (_, idx) => indexes.includes(idx)));
+  const OptionsList = useCallback(() => {
+    const { creators, categories } = useAppContext();
+    const indexes =
+      optionName === 'creators'
+        ? creators.map((item) =>
+            optionData.findIndex(({ _id }: { _id: string }) => _id === item),
+          )
+        : categories.map((item) =>
+            optionData.findIndex(({ _id }: { _id: string }) => _id === item),
+          );
+    const [checked, setChecked] = useState(
+      Array.from({ length: total }, (_, idx) => indexes.includes(idx)),
+    );
 
-      useEffect(() => {
-        setChecked((prev) => {
-          indexes.forEach((idx) => (prev[idx] = true));
-          return prev;
-        });
-      }, []);
+    useEffect(() => {
+      setChecked((prev) => {
+        indexes.forEach((idx) => (prev[idx] = true));
+        return prev;
+      });
+    }, []);
 
-      const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        optionName === 'creators' ?
-          onFilterItemSelect(e, creators, setCreators) :
-          onFilterItemSelect(e, categories, setCategories);
-      };
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      optionName === 'creators'
+        ? onFilterItemSelect(e, creators, setCreators)
+        : onFilterItemSelect(e, categories, setCategories);
+    };
 
-      if (isLoading && !isError) {
-        return <FilterSkeleton />;
-      }
+    if (isLoading || (isFetching && !isError)) {
+      return <FilterSkeleton />;
+    }
 
-      return (
-        <List total={total} optionData={optionData}>
-          {({ data, index, style }) => {
-            if (!data.length) {
-              return null;
-            }
-            const { _id, name } = data[index];
-            return (
-              <OptionsItem
-                style={style}
-                _id={_id}
-                optionName={optionName}
-                name={name}
-                index={index}
-                onChange={onChange}
-                checked={checked}
-                setChecked={setChecked}
-              />
-            );
-          }}
-        </List>
-      );
-    },
-    [data?.data?.data?.[optionName], isLoading, isError]
-  );
+    return (
+      <List total={total} optionData={optionData}>
+        {({ data, index, style }) => {
+          if (!data.length) {
+            return null;
+          }
+          const { _id, name } = data[index];
+          return (
+            <OptionsItem
+              style={style}
+              _id={_id}
+              optionName={optionName}
+              name={name}
+              index={index}
+              onChange={onChange}
+              checked={checked}
+              setChecked={setChecked}
+            />
+          );
+        }}
+      </List>
+    );
+  }, [data?.data?.data?.[optionName], isLoading, isFetching, isError]);
 
   return (
     <React.Fragment>
@@ -90,7 +96,11 @@ function FilterOption({ optionName }: IFilterOptionProps) {
             <sup>({total})</sup>
           </Form.Label>
           {admin.isLoggedIn && (
-            <Button variant="light" size="sm" onClick={() => setShowModal(true)}>
+            <Button
+              variant="light"
+              size="sm"
+              onClick={() => setShowModal(true)}
+            >
               ✍🏻 Edit
             </Button>
           )}

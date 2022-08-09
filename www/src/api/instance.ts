@@ -16,7 +16,7 @@ instance.interceptors.request.use((config) => {
 
     const parsedToken: string | null = accessToken ? accessToken : '';
 
-    if(parsedToken) {
+    if (parsedToken) {
       config!.headers!.Authorization = `Bearer ${parsedToken}`;
     }
   } catch (error) {
@@ -26,36 +26,44 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-instance.interceptors.response.use((config) => {
-  return config;
-}, async (error) => {
-  const originalRequest = error.config;
-  
-  console.log('originalRequest._isRetry', originalRequest?._isRetry);
-  if(error.response.status == 401 && originalRequest?._isRetry && originalRequest?._isRetry !== true) {
-    originalRequest._isRetry = true;
-    try {
-          let token = localStorage.getItem('refreshToken') as string;
+instance.interceptors.response.use(
+  (config) => {
+    return config;
+  },
+  async (error) => {
+    const originalRequest = error.config;
 
-          const response = await instance.post<IAdminResponse>(`/auth/refresh`, {refreshToken: token ? token : ''});
+    console.log('isRetry', originalRequest?._isRetry);
+    if (
+      error.response.status == 401 &&
+      originalRequest?._isRetry &&
+      originalRequest?._isRetry !== true
+    ) {
+      originalRequest._isRetry = true;
+      try {
+        let token = localStorage.getItem('refreshToken') as string;
 
-          if(response.status == 200) {
-            const accessToken = response?.data?.data?.tokens?.accessToken;
-            const refreshToken = response?.data?.data?.tokens?.refreshToken;
+        const response = await instance.post<IAdminResponse>(`/auth/refresh`, {
+          refreshToken: token ? token : '',
+        });
 
-            localStorage.setItem('refreshToken', refreshToken);
-            localStorage.setItem('accessToken', accessToken);
+        if (response.status == 200) {
+          const accessToken = response?.data?.data?.tokens?.accessToken;
+          const refreshToken = response?.data?.data?.tokens?.refreshToken;
 
-            return instance.request(originalRequest);
-          } else {
-            return new Error(`response?.data ${response?.data}`);
-          }
-        } catch (error) {
-          console.log("Unauthorized:  ", error);
+          localStorage.setItem('refreshToken', refreshToken);
+          localStorage.setItem('accessToken', accessToken);
+
+          return instance.request(originalRequest);
+        } else {
+          return new Error(`response?.data ${response?.data}`);
         }
+      } catch (error) {
+        console.log('Unauthorized:  ', error);
+      }
     }
     throw error;
-})
-
+  },
+);
 
 export default instance;
