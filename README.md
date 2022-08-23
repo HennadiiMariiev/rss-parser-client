@@ -31,11 +31,12 @@ The App Client is currently located on [netlify](https://www.netlify.com/) platf
 ## Docker and Makefile
 
 This is containerized app. Please, check out `./Makefile` with most used commands for quick application start.
-`make up` | Start all containers (in background)
-`make down` | Stop all started containers
-`make shell-once` | Start node container
-`make run-dev` | Start node container and start app in development mode
-`make run-build` | Start node container and build app
+
+- `make up` | Start all containers (in background)
+- `make down` | Stop all started containers
+- `make shell-once` | Start node container
+- `make run-dev` | Start node container and start app in development mode
+- `make run-build` | Start node container and build app
 
 ### Please, feel free to use this repo))
 
