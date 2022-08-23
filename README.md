@@ -17,6 +17,13 @@ To provide it main functionality this app uses the following packages/libraries 
 
 This app shows **lifehacker RSS** posts, which are parsed by schedule on server-side and stored in database. Unauthorized users can view all posts using pagination, filter by creators and categories, sort by date and title, search by title and description as well. Registered and authorized users (admins) can perform CRUD operations on posts, categories and creators. App's design is responsive and mobile-friendly))
 
+### N.B.!:
+
+If you want to **sign in** as admin in dev mode without email verification, feel free to use next credentials (no worries: this won't hurt any app's security - this works only in container and local database):
+
+- **email**: **admin@gmail.com**
+- **password**: **Qwerty123-**
+
 ## Live Client App
 
 The App Client is currently located on [netlify](https://www.netlify.com/) platform. Here is [link](https://rss-parser-client.netlify.app/).
