@@ -3,7 +3,14 @@ import { Form } from 'react-bootstrap';
 
 import { IOptionsModalItemProps } from '../../interfaces/interfaces';
 
-function OptionsModalItem({ style, _id, optionName, name, checked, setChecked }: IOptionsModalItemProps) {
+function OptionsModalItem({
+  style,
+  _id,
+  optionName,
+  name,
+  checked,
+  setChecked,
+}: IOptionsModalItemProps) {
   return (
     <li style={{ ...style, paddingLeft: '0.5rem', paddingTop: '3px' }}>
       <Form.Check
@@ -16,7 +23,9 @@ function OptionsModalItem({ style, _id, optionName, name, checked, setChecked }:
         onChange={(e) => {
           e.target.checked
             ? setChecked((prev) => [...prev, e.target.value])
-            : setChecked((prev) => [...prev.filter((i) => i !== e.target.value)]);
+            : setChecked((prev) => [
+                ...prev.filter((i) => i !== e.target.value),
+              ]);
         }}
         checked={checked.includes(_id)}
       />

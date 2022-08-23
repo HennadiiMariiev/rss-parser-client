@@ -1,10 +1,16 @@
 import React from 'react';
-import { IOptionsModalListProps } from '../../interfaces/interfaces';
 
+import { IOptionsModalListProps } from '../../interfaces/interfaces';
 import List from '../Filters/OptionsList';
 import OptionsModalItem from './OptionsModalItem';
 
-function OptionsModalList({ data, optionName, checked, setChecked, height = 250 }: IOptionsModalListProps) {
+function OptionsModalList({
+  data,
+  optionName,
+  checked,
+  setChecked,
+  height = 250,
+}: IOptionsModalListProps) {
   return (
     <List total={data.length} optionData={data} height={height}>
       {({ data, index, style }) => {
@@ -24,4 +30,4 @@ function OptionsModalList({ data, optionName, checked, setChecked, height = 250 
   );
 }
 
-export default OptionsModalList;
+export default React.memo(OptionsModalList);

@@ -1,16 +1,31 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useGetCategories } from '../../api/categories';
 import { useGetCreators } from '../../api/creators';
 import OptionsModalList from './OptionsModalList';
-import { IEditPostModalProps, INewPostFormValues } from '../../interfaces/interfaces';
+import {
+  IEditPostModalProps,
+  INewPostFormValues,
+} from '../../interfaces/interfaces';
 import PostModalMarkup from './PostModalMarkup';
 import { addValuesOnEdit } from '../../helpers/addValuesOnEditPost';
 
-function EditPostModal({ editModal, onCloseModal, updatePost }: IEditPostModalProps) {
+function EditPostModal({
+  editModal,
+  onCloseModal,
+  updatePost,
+}: IEditPostModalProps) {
   const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
-  const { register, handleSubmit, formState: { errors }, setValue, getValues, clearErrors, reset } = useForm<INewPostFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    getValues,
+    clearErrors,
+    reset,
+  } = useForm<INewPostFormValues>();
   const { data: creatorsData } = useGetCreators();
   const { data: categoriesData } = useGetCategories();
 
@@ -30,45 +45,55 @@ function EditPostModal({ editModal, onCloseModal, updatePost }: IEditPostModalPr
   }, [creatorsData]);
 
   const OptionsList = useCallback(() => {
-    const data = Array.isArray(categoriesData?.data?.data?.categories) ? categoriesData?.data?.data?.categories : []
+    const data = Array.isArray(categoriesData?.data?.data?.categories)
+      ? categoriesData?.data?.data?.categories
+      : [];
     const [checked, setChecked] = useState<string[]>([]);
 
     useEffect(() => setCheckedOptions(checked), [checked]);
 
-    useEffect(() =>  {
-        if(editModal.post) {
-            setChecked(editModal.post?.categories.map((item) => item._id));
-        }
+    useEffect(() => {
+      if (editModal.post) {
+        setChecked(editModal.post?.categories.map((item) => item._id));
+      }
     }, [editModal.post, setChecked]);
 
-    return <OptionsModalList data={data!} checked={checked} setChecked={setChecked} optionName='category' height={200} />;
+    return (
+      <OptionsModalList
+        data={data!}
+        checked={checked}
+        setChecked={setChecked}
+        optionName="category"
+        height={200}
+      />
+    );
   }, [categoriesData?.data?.data?.categories, editModal.post]);
 
-  const onConfirmClick : SubmitHandler<INewPostFormValues> = (_) => {
+  const onConfirmClick: SubmitHandler<INewPostFormValues> = (_) => {
     setValue('_id', editModal.post?._id);
     setValue('publication_date', editModal.post?.publication_date);
     setValue('categories', checkedOptions);
     updatePost.mutate(getValues());
   };
 
-  const onHide = () => {
+  const onHide = useCallback(() => {
     clearErrors();
     onCloseModal();
-  }
+  }, [clearErrors, onCloseModal]);
 
   return (
-    <PostModalMarkup 
-      show={editModal.show} 
-      onHide={onHide} 
-      loading={updatePost.isLoading} 
-      OptionsList={OptionsList} 
-      creatorsOptions={creatorsOptions} 
-      register={register} 
+    <PostModalMarkup
+      show={editModal.show}
+      onHide={onHide}
+      loading={updatePost.isLoading}
+      OptionsList={OptionsList}
+      creatorsOptions={creatorsOptions}
+      register={register}
       errors={errors}
-      handleSubmit={handleSubmit} 
+      handleSubmit={handleSubmit}
       onSubmit={onConfirmClick}
       isEdit
-      />
+    />
   );
 }
 

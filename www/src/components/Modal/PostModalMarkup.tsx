@@ -1,10 +1,15 @@
 import React from 'react';
-import { Form, Modal, Spinner, Button } from 'react-bootstrap';
+import { Form, Modal, Button } from 'react-bootstrap';
 import { imageUrlPattern, LHLinkPattern } from '../../../config/vars/regexp';
 import { IPostModalMarkupProps } from '../../interfaces/interfaces';
+import ButtonLoader from '../Loaders/ButtonLoader';
 
 function WarningText({ text }: { text: string }): JSX.Element {
-  return <p className="mt-1 mb-1 small text-danger">Please provide a valid {text}.</p>;
+  return (
+    <p className="mt-1 mb-1 small text-danger">
+      Please provide a valid {text}.
+    </p>
+  );
 }
 
 function PostModalMarkup({
@@ -31,7 +36,11 @@ function PostModalMarkup({
             <Form.Control
               placeholder="Title"
               aria-describedby="post-title"
-              {...register('title', { required: true, minLength: 10, maxLength: 100 })}
+              {...register('title', {
+                required: true,
+                minLength: 10,
+                maxLength: 100,
+              })}
             />
             {errors?.title && <WarningText text="title" />}
           </Form.Group>
@@ -43,9 +52,17 @@ function PostModalMarkup({
               rows={3}
               placeholder="Description"
               aria-describedby="post-description"
-              {...register('description', { required: true, minLength: 10, maxLength: 1000 })}
+              {...register('description', {
+                required: true,
+                minLength: 10,
+                maxLength: 1000,
+              })}
             />
-            {errors?.description && <WarningText text={`description ${errors?.description?.message}`} />}
+            {errors?.description && (
+              <WarningText
+                text={`description ${errors?.description?.message}`}
+              />
+            )}
           </Form.Group>
 
           <Form.Group className="mb-2 w-100" controlId="post-image">
@@ -53,9 +70,16 @@ function PostModalMarkup({
             <Form.Control
               placeholder="Link to related image"
               aria-describedby="post-image"
-              {...register('image', { required: true, minLength: 10, maxLength: 500, pattern: imageUrlPattern })}
+              {...register('image', {
+                required: true,
+                minLength: 10,
+                maxLength: 500,
+                pattern: imageUrlPattern,
+              })}
             />
-            {errors?.image && <WarningText text={`image link ${errors?.image?.message}`} />}
+            {errors?.image && (
+              <WarningText text={`image link ${errors?.image?.message}`} />
+            )}
           </Form.Group>
 
           <Form.Group className="mb-2 w-100" controlId="post-link">
@@ -63,7 +87,11 @@ function PostModalMarkup({
             <Form.Control
               placeholder="https://lifehacker.com/..."
               aria-describedby="post-link"
-              {...register('link', { required: true, maxLength: 500, pattern: LHLinkPattern })}
+              {...register('link', {
+                required: true,
+                maxLength: 500,
+                pattern: LHLinkPattern,
+              })}
             />
             {errors?.link && <WarningText text="post link" />}
           </Form.Group>
@@ -82,7 +110,7 @@ function PostModalMarkup({
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" type="submit" disabled={loading}>
-            {loading && <Spinner animation="border" variant="light" size="sm" className="me-2" />}
+            {loading && <ButtonLoader />}
             {!loading ? 'Save' : 'Saving...'}
           </Button>
           <Button variant="secondary" onClick={onHide} disabled={loading}>
