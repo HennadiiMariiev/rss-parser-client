@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { useLogout } from '../../api/auth';
 import { getAdminName } from '../../helpers/getAdminName';
 import { showError, showInfo } from '../../helpers/messageHelpers';
-import useStorageToken from '../../hooks/useStorageToken';
 import { useAppContext } from '../../providers/ContextProvider';
+import useStorageToken from '../../hooks/useStorageToken';
 import UserMenuSkeleton from '../Skeletons/UserMenuSkeleton';
 
 import './navbar.module.css';
@@ -28,18 +28,18 @@ function UserMenu() {
         accessToken: '',
         refreshToken: '',
       });
-      showInfo(setMessage, 'Goodbye! See you next time! 👋')
+      showInfo(setMessage, 'Goodbye! See you next time! 👋');
     }
-    if(isError) {
-      showError(setMessage, 'Can`t perform logout! 🙄')
+    if (isError) {
+      showError(setMessage, 'Can`t perform logout! 🙄');
     }
   }, [isSuccess, isError, setAdmin, refreshToken, setRefreshToken, setMessage]);
 
-  const onLogOut = () => {
+  const onLogOut = useCallback(() => {
     if (admin.refreshToken) {
       mutate(admin.refreshToken);
     }
-  };
+  }, [admin.refreshToken, mutate]);
 
   if (admin.isAuthInProgress) {
     return <UserMenuSkeleton />;
@@ -49,7 +49,12 @@ function UserMenu() {
     return (
       <div className="user-menu">
         <span className="logo-emoji">👤</span> {getAdminName(admin)}
-        <Button variant="light" size="sm" className="ms-3 border-0" onClick={onLogOut}>
+        <Button
+          variant="light"
+          size="sm"
+          className="ms-3 border-0"
+          onClick={onLogOut}
+        >
           👣 LogOut
         </Button>
       </div>

@@ -1,8 +1,12 @@
 import React, { useMemo, useState } from 'react';
-import { Form, ToggleButton, Button } from 'react-bootstrap';
+import { Form, ToggleButton } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 
-import { emailPattern, namePattern, passwordPattern } from '../../../config/vars';
+import {
+  emailPattern,
+  namePattern,
+  passwordPattern,
+} from '../../../config/vars';
 import { isRegisterPage } from '../../helpers/isRegisterPage';
 import { IFormMarkupProps } from '../../interfaces/interfaces';
 import SignButton from './SignButton';
@@ -14,7 +18,11 @@ const PASSWORD_HELPER_TEXT =
   'Your password must be 6-12 characters long, contain 1 uppercase, 1 lowercase letter, number, and special character (@$!%*?&.,_-). Example: "Qwerty123-"';
 
 function WarningText({ text }: { text: string }): JSX.Element {
-  return <p className="mt-1 mb-1 small text-danger">Please provide a valid {text}.</p>;
+  return (
+    <p className="mt-1 mb-1 small text-danger">
+      Please provide a valid {text}.
+    </p>
+  );
 }
 
 function FormMarkup({
@@ -23,8 +31,6 @@ function FormMarkup({
   register,
   errors,
   isSignLoading,
-  isSignError,
-  signError,
 }: IFormMarkupProps) {
   const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +47,11 @@ function FormMarkup({
           <Form.Control
             type="text"
             placeholder="Enter name"
-            {...register('name', { required: true, maxLength: 30, pattern: namePattern })}
+            {...register('name', {
+              required: true,
+              maxLength: 30,
+              pattern: namePattern,
+            })}
           />
           {errors?.name && <WarningText text="name" />}
           {isRegistration && (
@@ -58,7 +68,11 @@ function FormMarkup({
         <Form.Control
           type="email"
           placeholder="Enter email"
-          {...register('email', { required: true, maxLength: 50, pattern: emailPattern })}
+          {...register('email', {
+            required: true,
+            maxLength: 50,
+            pattern: emailPattern,
+          })}
         />
         {errors?.email && <WarningText text="email" />}
       </Form.Group>
@@ -71,7 +85,10 @@ function FormMarkup({
           <Form.Control
             type={!showPassword ? 'password' : 'text'}
             placeholder="Password"
-            {...register('password', { required: true, pattern: passwordPattern })}
+            {...register('password', {
+              required: true,
+              pattern: passwordPattern,
+            })}
           />
           <ToggleButton
             variant="outline-secondary"
@@ -94,7 +111,10 @@ function FormMarkup({
           </Form.Text>
         )}
       </Form.Group>
-      <SignButton isRegistration={isRegistration} isSignLoading={isSignLoading} />
+      <SignButton
+        isRegistration={isRegistration}
+        isSignLoading={isSignLoading}
+      />
     </Form>
   );
 }

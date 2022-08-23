@@ -5,13 +5,14 @@ import { isMobile } from '../helpers/isMobile';
 import { useGetPosts } from '../api/posts';
 import { POSTS_LIMIT } from '../../config/vars';
 import { IPagination } from '../interfaces/interfaces';
+import { useAppContext } from '../providers/ContextProvider';
 import Main from '../layouts/Main';
 import Wrapper from '../layouts/Wrapper';
 import SideBar from '../layouts/SideBar';
 import Header from '../layouts/Header';
 import Logo from './NavBar/Logo';
 import UserMenu from './NavBar/UserMenu';
-import Loader from './Loader/Loader';
+import Loader from './Loaders/Loader';
 import useDebounce from '../hooks/useDebounce';
 import Filters from './Filters/Filters';
 import Posts from './Posts/Posts';
@@ -20,13 +21,17 @@ import MenuButton from './NavBar/MenuButton';
 import MobileMenu from './NavBar/MobileMenu';
 
 import '../index.css';
-import { useAppContext } from '../providers/ContextProvider';
 
 function Home() {
   const isMobileViewport = isMobile();
   const { creators, categories } = useAppContext();
   const [showMenu, setShowMenu] = useState(false);
-  const [pagination, setPagination] = useState<IPagination>({ page: 1, pageCount: 1, total: 0, limit: POSTS_LIMIT });
+  const [pagination, setPagination] = useState<IPagination>({
+    page: 1,
+    pageCount: 1,
+    total: 0,
+    limit: POSTS_LIMIT,
+  });
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('publication_date');
   const [sortOrder, setSortOrder] = useState('desc');
@@ -85,7 +90,13 @@ function Home() {
           <Paginator pagination={pagination} setPagination={setPagination} />
         </Suspense>
         <Suspense fallback={<Loader />}>
-          <Posts isLoading={isLoading} isError={isError} posts={posts} error={error} isFetching={isFetching} />
+          <Posts
+            isLoading={isLoading}
+            isError={isError}
+            posts={posts}
+            error={error}
+            isFetching={isFetching}
+          />
         </Suspense>
         <Suspense fallback={<Loader />}>
           <Paginator pagination={pagination} setPagination={setPagination} />
@@ -109,4 +120,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default React.memo(Home);

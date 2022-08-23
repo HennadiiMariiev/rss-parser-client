@@ -1,12 +1,18 @@
 import React from 'react';
 import { Button, Spinner } from 'react-bootstrap';
+
 import { ISignButton } from '../../interfaces/interfaces';
 
 function SignButton({ isRegistration, isSignLoading }: ISignButton) {
   if (isSignLoading) {
     return (
       <Button type="submit" className="submit-button" disabled>
-        <Spinner animation="border" variant="light" size="sm" className="me-2" />
+        <Spinner
+          animation="border"
+          variant="light"
+          size="sm"
+          className="me-2"
+        />
         Loading...
       </Button>
     );
@@ -19,4 +25,4 @@ function SignButton({ isRegistration, isSignLoading }: ISignButton) {
   );
 }
 
-export default SignButton;
+export default React.memo(SignButton);

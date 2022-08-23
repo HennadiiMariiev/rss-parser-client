@@ -32,7 +32,13 @@ function App() {
         const res = data?.data?.data?.admin;
         const { accessToken, refreshToken } = data?.data?.data?.tokens;
 
-        setAdmin(() => ({ ...res, isAuthInProgress: isLoading, isLoggedIn: true, accessToken, refreshToken }));
+        setAdmin(() => ({
+          ...res,
+          isAuthInProgress: isLoading,
+          isLoggedIn: true,
+          accessToken,
+          refreshToken,
+        }));
         setRefreshToken(refreshToken);
         setAccessToken(accessToken);
       }
@@ -52,4 +58,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

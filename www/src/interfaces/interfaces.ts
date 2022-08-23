@@ -202,8 +202,8 @@ export interface IFormMarkupProps {
   register: UseFormRegister<IFormValues>;
   errors: FieldErrorsImpl<DeepRequired<IFormValues>>;
   isSignLoading: boolean;
-  isSignError: boolean;
-  signError: unknown;
+  isSignError?: boolean;
+  signError?: unknown;
 }
 
 export interface IFormValues {

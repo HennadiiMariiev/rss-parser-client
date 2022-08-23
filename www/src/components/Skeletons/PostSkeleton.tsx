@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 
 //@ts-ignore
-import img from '../../images/default-placeholder.png';
+import img from '../../assets/images/default-placeholder.png';
 
 import './skeletons.module.css';
 
@@ -18,8 +18,10 @@ function PostSkeleton() {
           <Placeholder xs={5} />
         </Placeholder>
         <Placeholder animation="glow" className="mb-3" as={Card.Title}>
-          <Placeholder xs={4} className="skeleton-color" /> <Placeholder xs={3} className="skeleton-color" />{' '}
-          <Placeholder xs={3} className="skeleton-color" /> <Placeholder xs={5} className="skeleton-color" />{' '}
+          <Placeholder xs={4} className="skeleton-color" />{' '}
+          <Placeholder xs={3} className="skeleton-color" />{' '}
+          <Placeholder xs={3} className="skeleton-color" />{' '}
+          <Placeholder xs={5} className="skeleton-color" />{' '}
           <Placeholder xs={3} className="skeleton-color" />
         </Placeholder>
         <Placeholder as={Card.Title} animation="glow">
@@ -27,7 +29,8 @@ function PostSkeleton() {
         </Placeholder>
         <Placeholder animation="glow" className="mb-2">
           <Placeholder xs={4} /> <Placeholder xs={3} /> <Placeholder xs={4} />
-          <Placeholder xs={2} /> <Placeholder xs={4} /> <Placeholder xs={3} /> <Placeholder xs={2} />
+          <Placeholder xs={2} /> <Placeholder xs={4} /> <Placeholder xs={3} />{' '}
+          <Placeholder xs={2} />
           <Placeholder xs={3} />
         </Placeholder>
         <Placeholder animation="glow" className="mb-3 text-end">
