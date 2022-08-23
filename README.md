@@ -34,6 +34,7 @@ This is containerized app. Please, check out `./Makefile` with most used command
 
 - `make up` | Start all containers (in background)
 - `make down` | Stop all started containers
+- `make install` | Install deps
 - `make shell-once` | Start node container
 - `make run-dev` | Start node container and start app in development mode
 - `make run-build` | Start node container and build app

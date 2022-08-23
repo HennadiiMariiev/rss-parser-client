@@ -17,6 +17,8 @@ up: ## start all containers (in background) LOCAL
 	$(docker_compose_bin) $(COMPOSE_CONFIG) up --no-recreate -d 
 down: ## stop all started for development containers LOCAL
 	$(docker_compose_bin) $(COMPOSE_CONFIG) down
+install: ## install deps
+	$(docker_compose_bin) $(COMPOSE_CONFIG) run --rm --user="$(CURRENT_USER_ID)" -p ${PORT}:${PORT} "client-node" npm install
 shell-once: ## start client-node container
 	$(docker_compose_bin) $(COMPOSE_CONFIG) run --rm --user="$(CURRENT_USER_ID)" -p ${PORT}:${PORT} "client-node" bash
 run-dev: ## start container in development mode
