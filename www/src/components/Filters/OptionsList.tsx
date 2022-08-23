@@ -4,7 +4,12 @@ import { FixedSizeList } from 'react-window';
 import { IOptionsListProps } from '../../interfaces/interfaces';
 import { inlineListStyles } from './inlineListStyle';
 
-function List({ total, optionData, children, height = 250 }: IOptionsListProps) {
+function List({
+  total,
+  optionData,
+  children,
+  height = 250,
+}: IOptionsListProps) {
   return (
     <FixedSizeList
       innerElementType="ul"
@@ -20,4 +25,4 @@ function List({ total, optionData, children, height = 250 }: IOptionsListProps) 
   );
 }
 
-export default React.memo(List);
+export default List;

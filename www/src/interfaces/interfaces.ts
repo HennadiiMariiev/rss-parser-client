@@ -1,6 +1,12 @@
 import { ListChildComponentProps } from 'react-window';
 import React, { ComponentType } from 'react';
-import { UseFormHandleSubmit, UseFormRegister, SubmitHandler, FieldErrorsImpl, DeepRequired } from 'react-hook-form';
+import {
+  UseFormHandleSubmit,
+  UseFormRegister,
+  SubmitHandler,
+  FieldErrorsImpl,
+  DeepRequired,
+} from 'react-hook-form';
 import { UseMutationResult } from 'react-query';
 import { AxiosResponse } from 'axios';
 
@@ -105,6 +111,16 @@ export interface IFiltersProps {
   setPagination: Function;
 }
 
+export interface IFiltersMarkupProps {
+  pagination: IPagination;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  onLimitChange: (e: React.ChangeEvent<HTMLSelectElement>) => any;
+  onSortByChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onSortOrderChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  showModal: boolean;
+}
+
 export interface IMobileMenuProps {
   show: boolean;
   setShow: Function;
@@ -125,9 +141,9 @@ export interface IPostsProps {
 }
 
 export interface IPost {
-  categories: { _id: string, name: string }[];
+  categories: { _id: string; name: string }[];
   createdAt: Date;
-  creator: { _id: string, name: string };
+  creator: { _id: string; name: string };
   description: string;
   image: string;
   link: string;
@@ -144,7 +160,7 @@ export interface IPostsResponse {
       page: number;
       limit: number;
       total: number;
-    }
+    };
     message: string;
   };
 }
@@ -203,17 +219,17 @@ export interface ISignButton {
 
 export interface IToastMessageProps {
   error?: unknown;
-  message?: string; 
+  message?: string;
 }
 
 export interface IAdminState {
-    name: string,
-    email: string,
-    isEmailVerified: boolean,
-    isLoggedIn?: boolean,
-    accessToken?: string;
-    refreshToken?: string;
-    isAuthInProgress?: boolean,
+  name: string;
+  email: string;
+  isEmailVerified: boolean;
+  isLoggedIn?: boolean;
+  accessToken?: string;
+  refreshToken?: string;
+  isAuthInProgress?: boolean;
 }
 
 export interface IAppContext {
@@ -223,18 +239,18 @@ export interface IAppContext {
   categories: string[];
   setAdmin: React.Dispatch<
     React.SetStateAction<{
-      name: string,
-      email: string,
-      isLoggedIn?: boolean,
+      name: string;
+      email: string;
+      isLoggedIn?: boolean;
       accessToken?: string;
       refreshToken?: string;
-      isAuthInProgress?: boolean,
-      isEmailVerified: boolean,
+      isAuthInProgress?: boolean;
+      isEmailVerified: boolean;
     }>
   >;
   setCreators: React.Dispatch<React.SetStateAction<string[]>>;
   setCategories: React.Dispatch<React.SetStateAction<string[]>>;
-  setMessage: React.Dispatch<React.SetStateAction<IMessage>>
+  setMessage: React.Dispatch<React.SetStateAction<IMessage>>;
 }
 
 export interface ITokens {
@@ -259,14 +275,18 @@ export interface IAdminResponse {
 
 export interface ISinglePostProps {
   post: IPost;
-  setModal : React.Dispatch<React.SetStateAction<{
-    show: boolean;
-    _id: string;
-  }>>;
-  setShowEditModal: React.Dispatch<React.SetStateAction<{
-    show: boolean;
-    post: IPost | undefined;
-  }>>;
+  setModal: React.Dispatch<
+    React.SetStateAction<{
+      show: boolean;
+      _id: string;
+    }>
+  >;
+  setShowEditModal: React.Dispatch<
+    React.SetStateAction<{
+      show: boolean;
+      post: IPost | undefined;
+    }>
+  >;
   isLoading: boolean;
 }
 
@@ -274,8 +294,8 @@ export interface IResponseError {
   response: {
     data: {
       message: string;
-    }
-  }
+    };
+  };
 }
 
 export interface IDialogModalProps {
@@ -287,11 +307,16 @@ export interface IDialogModalProps {
 
 export interface IEditPostModalProps {
   editModal: {
-    show: boolean,
-    post: IPost | undefined,
+    show: boolean;
+    post: IPost | undefined;
   };
   onCloseModal: () => void;
-  updatePost: UseMutationResult<AxiosResponse<IAddPostResponse, any>, unknown, INewPostFormValues, unknown>
+  updatePost: UseMutationResult<
+    AxiosResponse<IAddPostResponse, any>,
+    unknown,
+    INewPostFormValues,
+    unknown
+  >;
 }
 
 export interface IEditOptionModalProps {
@@ -302,7 +327,6 @@ export interface IEditOptionModalProps {
 }
 
 export interface IOptionForm {
-
   name: string;
 }
 
@@ -330,7 +354,7 @@ export interface IPostModalMarkupProps {
   creatorsOptions: JSX.Element[];
   onSubmit: SubmitHandler<INewPostFormValues>;
   handleSubmit: UseFormHandleSubmit<INewPostFormValues>;
-  isEdit?: boolean; 
+  isEdit?: boolean;
 }
 
 export interface INewPostFormValues {

@@ -26,11 +26,11 @@ function FilterOption({ optionName }: IFilterOptionProps) {
   );
   const total: number = data?.data?.data?.total! + 1 || 0;
 
-  const onReset = () => {
+  const onReset = useCallback(() => {
     optionName === 'creators' ? setCreators([]) : setCategories([]);
     // call refetch for uncheck all checkboxes in list
     refetch();
-  };
+  }, [refetch, optionName, setCreators, setCategories]);
 
   const OptionsList = useCallback(() => {
     const { creators, categories } = useAppContext();
