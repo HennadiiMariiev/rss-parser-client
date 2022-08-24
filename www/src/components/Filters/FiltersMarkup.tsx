@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Form, InputGroup } from 'react-bootstrap';
 
 import { IFiltersMarkupProps } from '../../interfaces/interfaces';
 import { useAppContext } from '../../providers/ContextProvider';
+import LightButton from '../Buttons/LightButton';
 import NewPostModal from '../Modal/NewPostModal';
 import FilterOption from './FilterOption';
 
@@ -23,9 +24,7 @@ function FiltersMarkup({
           Posts 📰&nbsp;<sup>({pagination.total})</sup>
         </Form.Label>
         {admin.isLoggedIn && (
-          <Button variant="light" size="sm" onClick={() => setShowModal(true)}>
-            ➕ New post
-          </Button>
+          <LightButton onClick={() => setShowModal(true)} text="➕ New post" />
         )}
       </div>
       <InputGroup className="mb-2">

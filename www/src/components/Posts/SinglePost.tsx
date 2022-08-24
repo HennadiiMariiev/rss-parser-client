@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
-import { Button } from 'react-bootstrap';
 
 import { extractDateAndTime } from '../../helpers/extractDateAndTime';
 import { isMobile } from '../../helpers/isMobile';
 import { prepareCategories } from '../../helpers/prepareCategories';
 import { ISinglePostProps } from '../../interfaces/interfaces';
 import { useAppContext } from '../../providers/ContextProvider';
+import LightButton from '../Buttons/LightButton';
 
 import './post.module.css';
 
@@ -35,24 +35,18 @@ function SinglePost({
     <li className="post">
       {admin?.isLoggedIn && (
         <div className="post-menu">
-          <Button
-            variant="light"
-            size="sm"
-            className="post-menu-button me-2"
+          <LightButton
             onClick={onDeleteClick}
+            className="post-menu-button me-2"
             disabled={isLoading}
-          >
-            ❌ Delete
-          </Button>
-          <Button
-            variant="light"
-            size="sm"
-            className="post-menu-button"
+            text="❌ Delete"
+          />
+          <LightButton
             onClick={onEditClick}
+            className="post-menu-button"
             disabled={isLoading}
-          >
-            ✍🏻 Edit
-          </Button>
+            text="✍🏻 Edit"
+          />
         </div>
       )}
       <div className="post-left-wrapper">
