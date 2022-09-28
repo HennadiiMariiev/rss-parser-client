@@ -50,7 +50,14 @@ function SinglePost({
         </div>
       )}
       <div className="post-left-wrapper">
-        <img src={post?.image} alt={post?.title} className="post-image" />
+        <img
+          src={post?.image}
+          alt={post?.title}
+          className="post-image"
+          width="100%"
+          height="auto"
+          loading="lazy"
+        />
       </div>
       <div className="post-meta">
         <p className="post-date">{pubDateAndTime}</p>

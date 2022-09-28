@@ -31,11 +31,16 @@ instance.interceptors.response.use(
     return config;
   },
   async (error) => {
-    const originalRequest = error.config;
-
-    console.log('isRetry', originalRequest?._isRetry);
-    if (error.response.status == 401 && originalRequest?._isRetry !== true) {
-      originalRequest._isRetry = true;
+    const originalRequest = error.response;
+    console.log('isRetry', error.response.statusText);
+    if (
+      error.response.status == 401 &&
+      error &&
+      localStorage &&
+      localStorage.getItem('isRetry') !== 'true'
+    ) {
+      originalRequest.isRetry = true;
+      localStorage.setItem('isRetry', 'true');
       try {
         let token = localStorage.getItem('refreshToken') as string;
 
@@ -49,6 +54,7 @@ instance.interceptors.response.use(
 
           localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('isRetry', 'false');
 
           return instance.request(originalRequest);
         } else {

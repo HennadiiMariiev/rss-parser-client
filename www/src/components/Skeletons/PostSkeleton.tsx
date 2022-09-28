@@ -11,7 +11,13 @@ function PostSkeleton() {
   return (
     <Card className="skeleton-wrapper">
       <div className="skeleton-left-wrapper">
-        <Card.Img variant="top" className="skeleton-image" src={img} />
+        <Card.Img
+          variant="top"
+          className="skeleton-image"
+          src={img}
+          alt="image placeholder"
+          loading="lazy"
+        />
       </div>
       <Card.Body className="skeleton-meta align-items-stretch">
         <Placeholder animation="glow" className="mb-3">
