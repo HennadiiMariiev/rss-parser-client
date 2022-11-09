@@ -19,9 +19,9 @@ function FiltersMarkup({
   const { admin } = useAppContext();
   return (
     <div className="filters-wrapper">
-      <div className="w-100 d-flex align-items-center justify-content-between mb-1">
-        <Form.Label id="creators" className="d-block fw-bold mb-1">
-          Posts 📰&nbsp;<sup>({pagination.total})</sup>
+      <div className="filters-header">
+        <Form.Label id="creators" className="d-block fw-bold mb-0">
+          Posts 📰&nbsp;<sup className="filters-sup">({pagination.total})</sup>
         </Form.Label>
         {admin.isLoggedIn && (
           <LightButton onClick={() => setShowModal(true)} text="➕ New post" />

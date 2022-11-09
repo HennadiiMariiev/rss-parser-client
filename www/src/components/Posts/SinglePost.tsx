@@ -54,8 +54,8 @@ function SinglePost({
           src={post?.image}
           alt={post?.title}
           className="post-image"
-          width="100%"
-          height="auto"
+          width="630"
+          height="353"
           loading="lazy"
         />
       </div>

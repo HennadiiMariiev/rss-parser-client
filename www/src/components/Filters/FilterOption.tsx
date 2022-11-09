@@ -92,7 +92,7 @@ function FilterOption({ optionName }: IFilterOptionProps) {
         <div className="w-100 d-flex align-items-center justify-content-between mb-1">
           <Form.Label id="creators" className="filters-label">
             {optionName} {getEmoji(optionName)}
-            <sup>({total})</sup>
+            <sup className="filters-sup">({total})</sup>
           </Form.Label>
           {admin.isLoggedIn && (
             <LightButton onClick={() => setShowModal(true)} text="✍🏻 Edit" />
