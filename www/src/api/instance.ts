@@ -4,7 +4,7 @@ import { IAdminResponse } from '../interfaces/interfaces';
 
 const isDev = () => REACT_APP_MODE === 'development';
 
-const URL = isDev() ? 'http://localhost:4000/api' : `${REACT_APP_API_URL}api`;
+const URL = !isDev() ? 'http://localhost:4000/api' : `${REACT_APP_API_URL}api`;
 
 const instance = axios.create({
   baseURL: URL,
