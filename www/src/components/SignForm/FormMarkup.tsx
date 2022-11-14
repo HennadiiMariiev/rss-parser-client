@@ -11,6 +11,8 @@ import { isRegisterPage } from '../../helpers/isRegisterPage';
 import { IFormMarkupProps } from '../../interfaces/interfaces';
 import SignButton from './SignButton';
 
+import classes from './form.module.scss';
+
 const NAME_HELPER_TEXT =
   'Your name must be 1-50 characters long, contain uppercase and lowercase letters, whitespace, dash, dot symbols. Example: "John Smith"';
 
@@ -81,7 +83,7 @@ function FormMarkup({
         <Form.Label>
           Password <sup className="text-danger">*</sup>
         </Form.Label>
-        <div className="password-input">
+        <div className={classes['password-input']}>
           <Form.Control
             type={!showPassword ? 'password' : 'text'}
             placeholder="Password"
@@ -98,7 +100,7 @@ function FormMarkup({
             size="sm"
             checked={showPassword}
             onChange={(e) => setShowPassword(e.currentTarget.checked)}
-            className="toggle-button"
+            className={classes['toggle-button']}
             aria-label="set password visibility"
           >
             🧐

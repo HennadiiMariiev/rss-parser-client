@@ -10,7 +10,6 @@ import SkeletonList from '../Skeletons/SkeletonList';
 import NoItems from './NoItems';
 import DialogModal from '../Modal/DialogModal';
 
-import './post.module.css';
 import { useDeleteSinglePost, useUpdatePost } from '../../api/posts';
 import { useAppContext } from '../../providers/ContextProvider';
 import { showError, showInfo } from '../../helpers/messageHelpers';
@@ -19,6 +18,8 @@ import {
   extractAddErrors,
   getErrorMessage,
 } from '../../helpers/getErrorMessage';
+
+import classes from './post.module.scss';
 
 function Posts({
   isLoading,
@@ -88,7 +89,7 @@ function Posts({
 
   if (isLoading || isFetching) {
     return (
-      <div className="posts-wrapper">
+      <div className={classes['posts-wrapper']}>
         <SkeletonList />
       </div>
     );
@@ -96,7 +97,7 @@ function Posts({
 
   if (isError && error) {
     return (
-      <div className="posts-wrapper">
+      <div className={classes['posts-wrapper']}>
         <NoItems error={error} isError />
       </div>
     );
@@ -104,7 +105,7 @@ function Posts({
 
   if (!postsList?.length) {
     return (
-      <div className="posts-wrapper">
+      <div className={classes['posts-wrapper']}>
         <NoItems />
       </div>
     );
@@ -112,7 +113,7 @@ function Posts({
 
   return (
     <React.Fragment>
-      <ul className="posts-wrapper">{postsList}</ul>
+      <ul className={classes['posts-wrapper']}>{postsList}</ul>
       <DialogModal
         showModal={modal.show}
         onCloseModal={onCloseModal}

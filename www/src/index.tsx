@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const rootElement = document.getElementById('root');
 
 if (!rootElement) {
-  throw new Error();
+  throw new Error('No root element');
 }
 
 const root = createRoot(rootElement);

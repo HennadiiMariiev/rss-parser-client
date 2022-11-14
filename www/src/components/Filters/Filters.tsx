@@ -3,8 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { IPagination, IFiltersProps } from '../../interfaces/interfaces';
 import FiltersMarkup from './FiltersMarkup';
 
-import './filters.module.css';
-
 function Filters({
   setSortBy,
   setSortOrder,

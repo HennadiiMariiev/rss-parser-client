@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './layout.module.css';
+import classes from './layout.module.scss';
 
 function SideBar({ children }: { children: React.ReactNode }) {
-  return <aside className="sideBar">{children}</aside>;
+  return <aside className={classes.sideBar}>{children}</aside>;
 }
 
 export default React.memo(SideBar);

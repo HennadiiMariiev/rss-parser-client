@@ -1,4 +1,4 @@
-import { REACT_APP_MODE, REACT_APP_API_URL } from './envs';
+import { VITE_APP_MODE, VITE_APP_API_URL } from './envs';
 import {
   QUERY_OPTIONS,
   POSTS_LIMIT,
@@ -8,8 +8,8 @@ import {
 import { namePattern, emailPattern, passwordPattern } from './regexp';
 
 export {
-  REACT_APP_MODE,
-  REACT_APP_API_URL,
+  VITE_APP_MODE,
+  VITE_APP_API_URL,
   POSTS_LIMIT,
   MOBILE_SLICE_COUNT,
   DEFAULT_SLICE_COUNT,

@@ -27,6 +27,11 @@ export interface IHtmlPluginOptions {
   isProduction?: boolean;
 }
 
+export interface IKeys {
+  categories: string;
+  creators: string;
+}
+
 export interface IOptions {
   limit?: number;
   page?: number;
@@ -66,7 +71,7 @@ export interface IOptionsItemProps extends ICategory {
   style: React.CSSProperties;
   optionName: string;
   index: number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   checked: boolean[];
   setChecked: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
@@ -166,6 +171,7 @@ export interface IGetOptionsResponse extends IMessageString {
     categories?: IOption[];
     total: number;
   };
+  index: string;
 }
 
 export interface IDeleteOptionResponse extends IMessageString {}

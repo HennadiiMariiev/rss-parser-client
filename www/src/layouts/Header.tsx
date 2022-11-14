@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './layout.module.css';
+import classes from './layout.module.scss';
 
 function Header({ children }: { children: React.ReactNode }) {
   return (
-    <header className="header">
-      <nav className="navigation">{children}</nav>
+    <header className={classes.header}>
+      <nav className={classes.navigation}>{children}</nav>
     </header>
   );
 }

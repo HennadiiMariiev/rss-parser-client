@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './navbar.module.css';
+import classes from './navbar.module.scss';
 
 function Logo() {
   return (
-    <Link className="logo" to="/">
-      <span className="logo-emoji">📰</span>LifeHacker
+    <Link className={classes.logo} to="/">
+      <span className={classes['logo-emoji']}>📰</span>LifeHacker
     </Link>
   );
 }

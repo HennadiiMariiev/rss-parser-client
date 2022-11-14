@@ -1,13 +1,13 @@
 import React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 
-import './loader.module.css';
+import classes from './loader.module.scss';
 
 function Loader() {
   return (
-    <div className="loader">
+    <div className={classes.loader}>
       <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
+        <span hidden>Loading...</span>
       </Spinner>
     </div>
   );

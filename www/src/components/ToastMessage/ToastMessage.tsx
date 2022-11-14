@@ -3,7 +3,7 @@ import { Toast } from 'react-bootstrap';
 
 import { useAppContext } from '../../providers/ContextProvider';
 
-import './toast.module.css';
+import classes from './toast.module.scss';
 
 function ToastMessage() {
   const { setMessage, message } = useAppContext();
@@ -14,15 +14,15 @@ function ToastMessage() {
   }, [setMessage]);
 
   return (
-    <div className="toast-wrapper">
+    <div className={classes['toast-wrapper']}>
       <Toast
         show={show}
         onClose={onClose}
-        className="toast-message"
+        className={classes['toast-message']}
         delay={3000}
         autohide
       >
-        <Toast.Header className="toast-header">
+        <Toast.Header className={classes['toast-header']}>
           <span className="rounded me-2">{!!isError ? '❌' : 'ℹ️'}</span>
           <strong className="me-auto">{!!isError ? 'Error' : 'Info'}</strong>
           <small>now</small>

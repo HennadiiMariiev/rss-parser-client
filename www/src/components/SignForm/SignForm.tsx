@@ -14,7 +14,7 @@ import { getErrorMessage } from '../../helpers/getErrorMessage';
 import FormMarkup from './FormMarkup';
 import useStorageToken from '../../hooks/useStorageToken';
 
-import './form.module.css';
+import classes from './form.module.scss';
 
 function SignForm() {
   const location = useLocation();
@@ -74,12 +74,12 @@ function SignForm() {
   };
 
   return (
-    <div className="sign-form">
+    <div className={classes['sign-form']}>
       <Nav defaultActiveKey="/login" as="ul" className="mb-3">
         <Nav.Item as="li" className="me-3">
           <NavLink
             to="/login"
-            className={!isRegistration ? 'active' : undefined}
+            className={!isRegistration ? classes.active : undefined}
           >
             Login
           </NavLink>
@@ -87,7 +87,7 @@ function SignForm() {
         <Nav.Item as="li">
           <NavLink
             to="/register"
-            className={isRegistration ? 'active' : undefined}
+            className={isRegistration ? classes.active : undefined}
           >
             Register
           </NavLink>

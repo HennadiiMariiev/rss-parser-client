@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import cn from 'classnames';
 import { InputGroup, Form } from 'react-bootstrap';
 
 import { useAppContext } from '../../providers/ContextProvider';
@@ -6,7 +7,11 @@ import { useGetCreators } from '../../api/creators';
 import { useGetCategories } from '../../api/categories';
 import { onFilterItemSelect } from '../../helpers/onIFilterItemSelect';
 import { addNoOptionItem } from '../../helpers/addNoOptionItem';
-import { IFilterOptionProps, IOption } from '../../interfaces/interfaces';
+import {
+  IFilterOptionProps,
+  IKeys,
+  IOption,
+} from '../../interfaces/interfaces';
 import { resetOption } from '../../helpers/resetOption';
 import { getEmoji } from '../../helpers/getEmoji';
 import { getOptionIndexes } from '../../helpers/findCallback';
@@ -16,7 +21,7 @@ import FilterSkeleton from '../Skeletons/FilterSkeleton';
 import List from './OptionsList';
 import LightButton from '../Buttons/LightButton';
 
-import './filters.module.css';
+import classes from './filters.module.scss';
 
 function FilterOption({ optionName }: IFilterOptionProps) {
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +30,7 @@ function FilterOption({ optionName }: IFilterOptionProps) {
   const { data, isLoading, isError, isFetching, refetch } =
     optionName === 'creators' ? useGetCreators() : useGetCategories();
   let optionData: IOption[] = addNoOptionItem(
-    data?.data?.data?.[optionName],
+    data?.data?.data?.[optionName as keyof IKeys]!,
     optionName,
   );
   const total: number = data?.data?.data?.total! + 1 || 0;
@@ -84,15 +89,20 @@ function FilterOption({ optionName }: IFilterOptionProps) {
         }}
       </List>
     );
-  }, [data?.data?.data?.[optionName], isLoading, isFetching, isError]);
+  }, [
+    data?.data?.data?.[optionName as keyof IKeys],
+    isLoading,
+    isFetching,
+    isError,
+  ]);
 
   return (
     <React.Fragment>
-      <InputGroup className="filters-item mb-2">
+      <InputGroup className={cn(classes['filters-item'], 'mb-2')}>
         <div className="w-100 d-flex align-items-center justify-content-between mb-1">
-          <Form.Label id="creators" className="filters-label">
+          <Form.Label id="creators" className={classes['filters-label']}>
             {optionName} {getEmoji(optionName)}
-            <sup className="filters-sup">({total})</sup>
+            <sup className={classes['filters-sup']}>({total})</sup>
           </Form.Label>
           {admin.isLoggedIn && (
             <LightButton onClick={() => setShowModal(true)} text="✍🏻 Edit" />
@@ -105,7 +115,7 @@ function FilterOption({ optionName }: IFilterOptionProps) {
         showModal={showModal}
         onCloseModal={() => setShowModal(false)}
         optionName={optionName}
-        optionData={data?.data?.data?.[optionName]}
+        optionData={data?.data?.data?.[optionName as keyof IKeys]!}
       />
     </React.Fragment>
   );

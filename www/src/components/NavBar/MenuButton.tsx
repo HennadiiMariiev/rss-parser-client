@@ -1,11 +1,15 @@
 import React from 'react';
 
-import './navbar.module.css';
+import classes from './navbar.module.scss';
 
-function MenuButton({ setShow }: { setShow: Function }) {
+function MenuButton({
+  setShow,
+}: {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <button
-      className="menu-button"
+      className={classes['menu-button']}
       aria-label="Mobile menu button"
       onClick={() => setShow(true)}
     >

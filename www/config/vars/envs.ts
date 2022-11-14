@@ -1,4 +1,4 @@
-const REACT_APP_MODE = process.env.REACT_APP_MODE;
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+const VITE_APP_MODE = import.meta.env.VITE_APP_MODE;
+const VITE_APP_API_URL = import.meta.env.VITE_APP_API_URL;
 
-export { REACT_APP_MODE, REACT_APP_API_URL };
+export { VITE_APP_MODE, VITE_APP_API_URL };

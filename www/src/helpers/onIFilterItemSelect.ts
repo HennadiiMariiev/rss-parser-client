@@ -1,4 +1,8 @@
-export function onFilterItemSelect(e: React.ChangeEvent<HTMLInputElement>, array: string[], callback: Function) {
+export function onFilterItemSelect(
+  e: React.ChangeEvent<HTMLInputElement>,
+  array: string[],
+  callback: React.Dispatch<React.SetStateAction<string[]>>,
+) {
   const { checked, value } = e.target;
   if (!Array.isArray(array)) {
     return;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './layout.module.css';
+import classes from './layout.module.scss';
 
 function Main({ children }: { children: React.ReactNode }) {
-  return <div className="main">{children}</div>;
+  return <div className={classes.main}>{children}</div>;
 }
 
 export default Main;

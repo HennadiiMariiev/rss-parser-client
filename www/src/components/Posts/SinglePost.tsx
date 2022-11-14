@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import cn from 'classnames';
 
 import { extractDateAndTime } from '../../helpers/extractDateAndTime';
 import { isMobile } from '../../helpers/isMobile';
@@ -7,7 +8,7 @@ import { ISinglePostProps } from '../../interfaces/interfaces';
 import { useAppContext } from '../../providers/ContextProvider';
 import LightButton from '../Buttons/LightButton';
 
-import './post.module.css';
+import classes from './post.module.scss';
 
 function SinglePost({
   post,
@@ -32,45 +33,45 @@ function SinglePost({
   }, [setShowEditModal]);
 
   return (
-    <li className="post">
+    <li className={classes.post}>
       {admin?.isLoggedIn && (
-        <div className="post-menu">
+        <div className={classes['post-menu']}>
           <LightButton
             onClick={onDeleteClick}
-            className="post-menu-button me-2"
+            className={cn(classes['post-menu-button'], 'me-2')}
             disabled={isLoading}
             text="❌ Delete"
           />
           <LightButton
             onClick={onEditClick}
-            className="post-menu-button"
+            className={classes['post-menu-button']}
             disabled={isLoading}
             text="✍🏻 Edit"
           />
         </div>
       )}
-      <div className="post-left-wrapper">
+      <div className={classes['post-left-wrapper']}>
         <img
           src={post?.image}
           alt={post?.title}
-          className="post-image"
+          className={classes['post-image']}
           width="630"
           height="353"
           loading="lazy"
         />
       </div>
-      <div className="post-meta">
-        <p className="post-date">{pubDateAndTime}</p>
-        <ul className="post-categories-list">{categories}</ul>
-        <h6 className="post-title">{post?.title}</h6>
+      <div className={classes['post-meta']}>
+        <p className={classes['post-date']}>{pubDateAndTime}</p>
+        <ul className={classes['post-categories-list']}>{categories}</ul>
+        <h6 className={classes['post-title']}>{post?.title}</h6>
         <p
-          className="post-description"
+          className={classes['post-description']}
           dangerouslySetInnerHTML={{ __html: post?.description }}
         />
         {post?.creator?.name && (
-          <i className="post-creator">by {post?.creator?.name}</i>
+          <i className={classes['post-creator']}>by {post?.creator?.name}</i>
         )}
-        <a href={post?.link} className="post-link" target="__blank">
+        <a href={post?.link} className={classes['post-link']} target="__blank">
           Read on LifeHacker...
         </a>
       </div>

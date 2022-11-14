@@ -9,7 +9,7 @@ import { useAppContext } from '../../providers/ContextProvider';
 import useStorageToken from '../../hooks/useStorageToken';
 import UserMenuSkeleton from '../Skeletons/UserMenuSkeleton';
 
-import './navbar.module.css';
+import classes from './navbar.module.scss';
 
 function UserMenu() {
   const { admin, setAdmin, setMessage } = useAppContext();
@@ -47,8 +47,8 @@ function UserMenu() {
 
   if (admin?.isLoggedIn) {
     return (
-      <div className="user-menu">
-        <span className="logo-emoji">👤</span> {getAdminName(admin)}
+      <div className={classes['user-menu']}>
+        <span className={classes['logo-emoji']}>👤</span> {getAdminName(admin)}
         <Button
           variant="light"
           size="sm"
@@ -62,9 +62,9 @@ function UserMenu() {
   }
 
   return (
-    <div className="user-menu">
-      <span className="logo-emoji">👤</span>Welcome,&nbsp;
-      <Link to="/login" className="user-menu-name">
+    <div className={classes['user-menu']}>
+      <span className={classes['logo-emoji']}>👤</span>Welcome,&nbsp;
+      <Link to="/login" className={classes['user-menu-name']}>
         {' '}
         guest!
       </Link>

@@ -1,20 +1,20 @@
 import React from 'react';
 
-import './post.module.css';
+import classes from './post.module.scss';
 
-function NoItems({ isError, error }: { isError?: boolean, error?: unknown }) {
+function NoItems({ isError, error }: { isError?: boolean; error?: unknown }) {
   if (isError && error) {
     return (
-      <div className="no-items">
-        <span className="no-items-emoji">🤦</span>
-        <span dangerouslySetInnerHTML={{__html: error as string}} />
+      <div className={classes['no-items']}>
+        <span className={classes['no-items-emoji']}>🤦</span>
+        <span dangerouslySetInnerHTML={{ __html: error as string }} />
       </div>
     );
   }
 
   return (
-    <div className="no-items">
-      <span className="no-items-emoji">🧐</span>
+    <div className={classes['no-items']}>
+      <span className={classes['no-items-emoji']}>🧐</span>
       Posts Not Found
     </div>
   );

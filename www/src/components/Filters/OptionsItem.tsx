@@ -24,7 +24,14 @@ function OptionsItem({
     [onChange, setChecked, index],
   );
   return (
-    <li style={{ ...style, paddingLeft: '0.5rem', paddingTop: '3px' }}>
+    <li
+      style={{
+        ...style,
+        paddingLeft: '0.5rem',
+        paddingTop: '3px',
+        whiteSpace: 'nowrap',
+      }}
+    >
       <Form.Check
         inline
         value={_id}

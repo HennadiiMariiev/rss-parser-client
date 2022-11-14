@@ -3,10 +3,12 @@ import { Button, Spinner } from 'react-bootstrap';
 
 import { ISignButton } from '../../interfaces/interfaces';
 
+import classes from './form.module.scss';
+
 function SignButton({ isRegistration, isSignLoading }: ISignButton) {
   if (isSignLoading) {
     return (
-      <Button type="submit" className="submit-button" disabled>
+      <Button type="submit" className={classes['submit-button']} disabled>
         <Spinner
           animation="border"
           variant="light"
@@ -19,7 +21,7 @@ function SignButton({ isRegistration, isSignLoading }: ISignButton) {
   }
 
   return (
-    <Button type="submit" className="submit-button">
+    <Button type="submit" className={classes['submit-button']}>
       {isRegistration ? '✍🏻 Register' : '🏃‍♂️ Log In'}
     </Button>
   );

@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { REACT_APP_MODE, REACT_APP_API_URL } from '../../config/vars';
+import { VITE_APP_MODE, VITE_APP_API_URL } from '../../config/vars';
 import { IAdminResponse } from '../interfaces/interfaces';
 
-const isDev = () => REACT_APP_MODE === 'development';
+const isDev = () => VITE_APP_MODE === 'development';
 
-const URL = isDev() ? 'http://localhost:4000/api' : `${REACT_APP_API_URL}api`;
+const URL = !isDev() ? 'http://localhost:4000/api' : `${VITE_APP_API_URL}api`;
 
 const instance = axios.create({
   baseURL: URL,
