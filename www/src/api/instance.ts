@@ -4,7 +4,7 @@ import { IAdminResponse } from '../interfaces/interfaces';
 
 const isDev = () => VITE_APP_MODE === 'development';
 
-const URL = !isDev() ? 'http://localhost:4000/api' : `${VITE_APP_API_URL}api`;
+const URL = isDev() ? 'http://localhost:4000/api' : `${VITE_APP_API_URL}api`;
 
 const instance = axios.create({
   baseURL: URL,
