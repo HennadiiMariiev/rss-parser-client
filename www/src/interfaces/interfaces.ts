@@ -10,6 +10,14 @@ import {
 import { UseMutationResult } from 'react-query';
 import { AxiosResponse } from 'axios';
 
+interface IShowModal {
+  showModal: boolean;
+}
+
+interface IMessageString {
+  message: string;
+}
+
 export interface IHtmlPluginOptions {
   template?: string;
   title?: string;
@@ -29,28 +37,20 @@ export interface IOptions {
   categories: string[];
 }
 
-export interface IOption {
-  _id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface ICategory {
   _id: string;
   name: string;
 }
 
+export interface ICreator extends ICategory {}
+export interface IOption extends ICategory {
+  createdAt: Date;
+  updatedAt: Date;
+}
 export interface ICategoriesProps {
-  setCategories: Function;
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
   categories: string[];
 }
-
-export interface ICreator {
-  _id: string;
-  name: string;
-}
-
 export interface IFilterOptionProps {
   optionName: string;
 }
@@ -62,22 +62,18 @@ export interface IOptionsListProps {
   children: ComponentType<ListChildComponentProps<IOption[]>>;
 }
 
-export interface IOptionsItemProps {
+export interface IOptionsItemProps extends ICategory {
   style: React.CSSProperties;
   optionName: string;
-  _id: string;
-  name: string;
   index: number;
-  onChange: Function;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean[];
-  setChecked: Function;
+  setChecked: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
 
-export interface IOptionsModalItemProps {
+export interface IOptionsModalItemProps extends ICategory {
   style: React.CSSProperties;
   optionName: string;
-  _id: string;
-  name: string;
   checked: string[];
   setChecked: React.Dispatch<React.SetStateAction<string[]>>;
 }
@@ -91,11 +87,6 @@ export interface IUsePostsProps {
   categories: string[];
 }
 
-export interface ICreatorsProps {
-  setCreators: Function;
-  creators: string[];
-}
-
 export interface IPagination {
   page: number;
   pageCount: number;
@@ -103,33 +94,30 @@ export interface IPagination {
   limit: number;
 }
 
-export interface IFiltersProps {
-  setSortBy: Function;
-  setSortOrder: Function;
-  setSearch: Function;
-  pagination: IPagination;
-  setPagination: Function;
+export interface IFiltersProps extends IPaginationProps {
+  setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  setSortOrder: React.Dispatch<React.SetStateAction<string>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface IFiltersMarkupProps {
+export interface IFiltersMarkupProps extends IShowModal {
   pagination: IPagination;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   onLimitChange: (e: React.ChangeEvent<HTMLSelectElement>) => any;
   onSortByChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onSortOrderChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  showModal: boolean;
 }
 
 export interface IMobileMenuProps {
   show: boolean;
-  setShow: Function;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
 }
 
 export interface IPaginationProps {
   pagination: IPagination;
-  setPagination: Function;
+  setPagination: React.Dispatch<React.SetStateAction<IPagination>>;
 }
 
 export interface IPostsProps {
@@ -164,28 +152,23 @@ export interface IPostsResponse {
     message: string;
   };
 }
-export interface IAddOptionResponse {
+export interface IAddOptionResponse extends IMessageString {
   data: IOption;
-  message: string;
 }
 
-export interface IAddPostResponse {
+export interface IAddPostResponse extends IMessageString {
   data: IPost;
-  message: string;
 }
 
-export interface IGetOptionsResponse {
+export interface IGetOptionsResponse extends IMessageString {
   data: {
     creators?: IOption[];
     categories?: IOption[];
     total: number;
   };
-  message: string;
 }
 
-export interface IDeleteOptionResponse {
-  message: string;
-}
+export interface IDeleteOptionResponse extends IMessageString {}
 
 export interface Size {
   width: number | undefined;
@@ -298,8 +281,7 @@ export interface IResponseError {
   };
 }
 
-export interface IDialogModalProps {
-  showModal: boolean;
+export interface IDialogModalProps extends IShowModal {
   onCloseModal: () => void;
   onConfirm?: () => void;
   post?: IPost;
@@ -319,10 +301,9 @@ export interface IEditPostModalProps {
   >;
 }
 
-export interface IEditOptionModalProps {
+export interface IEditOptionModalProps extends IShowModal {
   optionName: string;
   optionData: IOption[];
-  showModal: boolean;
   onCloseModal: () => void;
 }
 
