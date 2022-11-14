@@ -2,7 +2,7 @@
 
 ## General 🔍
 
-This is a simple client-side React application for viewing and administration parsed [Lifehacker RSS](https://lifehacker.com/rss) feed. App is bundled with [es-build](https://github.com/evanw/esbuild) and based on React with TypeScript. The back-end server-side application code is located in my GitHub right here [rss-parser-server](https://github.com/HennadiiMariiev/rss-parser-server).
+This is a simple client-side React application for viewing and administration parsed [Lifehacker RSS](https://lifehacker.com/rss) feed. App is bundled with [vite](https://vitejs.dev/) and based on React with TypeScript. The back-end server-side application code is located in my GitHub right here [rss-parser-server](https://github.com/HennadiiMariiev/rss-parser-server).
 
 ## App Stack
 
@@ -47,7 +47,5 @@ Clone it, install dependencies and run the APP.
 
 It will be better to improve next stuff in this app (so-called TODOs):
 
-- add SASS-preprocessor and improve css
 - refactor TypeScript interfaces
-- improve routing: there are only 2 routes in App (**/**, **/login** and **/register**) - I got some issues with es-build
 - add eslint
