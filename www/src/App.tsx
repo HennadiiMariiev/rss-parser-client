@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 
 import Home from './components/Home';
 import Login from './components/Login';
@@ -10,7 +15,7 @@ import useStorageToken from './hooks/useStorageToken';
 import './index.css';
 
 function App() {
-  const { setAdmin } = useAppContext();
+  const { admin, setAdmin } = useAppContext();
   const [oldToken, setRefreshToken] = useStorageToken('refreshToken', '');
   const [, setAccessToken] = useStorageToken('accessToken', '');
 
@@ -51,8 +56,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Login />} />
+        <Route
+          path="/login"
+          element={admin.isLoggedIn ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={admin.isLoggedIn ? <Navigate to="/" /> : <Login />}
+        />
       </Routes>
     </Router>
   );
