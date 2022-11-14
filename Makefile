@@ -22,6 +22,6 @@ install: ## install deps
 shell-once: ## start client-node container
 	$(docker_compose_bin) $(COMPOSE_CONFIG) run --rm --user="$(CURRENT_USER_ID)" -p ${PORT}:${PORT} "client-node" bash
 run-dev: ## start container in development mode
-	$(docker_compose_bin) $(COMPOSE_CONFIG) run --rm --user="$(CURRENT_USER_ID)" -p ${PORT}:${PORT} "client-node" npm run start
+	$(docker_compose_bin) $(COMPOSE_CONFIG) run --rm --user="$(CURRENT_USER_ID)" -p ${PORT}:${PORT} "client-node" npm run dev
 run-build: ## start container and run build
 	$(docker_compose_bin) $(COMPOSE_CONFIG) run --rm --user="$(CURRENT_USER_ID)" -p ${PORT}:${PORT} "client-node" npm run build
