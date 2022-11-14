@@ -13,6 +13,9 @@ import { useAppContext } from './providers/ContextProvider';
 import useStorageToken from './hooks/useStorageToken';
 
 import './index.css';
+import { VITE_APP_API_URL, VITE_APP_MODE } from '../config/vars';
+
+console.log('envs', VITE_APP_API_URL, VITE_APP_MODE);
 
 function App() {
   const { admin, setAdmin } = useAppContext();
