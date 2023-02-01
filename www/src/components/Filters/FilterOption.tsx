@@ -33,7 +33,7 @@ function FilterOption({ optionName }: IFilterOptionProps) {
     data?.data?.data?.[optionName as keyof IKeys]!,
     optionName,
   );
-  const total: number = data?.data?.data?.total! + 1 || 0;
+  const total: number = data?.data?.data?.pagination?.total! + 1 || 0;
 
   const onReset = useCallback(() => {
     optionName === 'creators'

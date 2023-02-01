@@ -169,7 +169,7 @@ export interface IGetOptionsResponse extends IMessageString {
   data: {
     creators?: IOption[];
     categories?: IOption[];
-    total: number;
+    pagination: IPagination;
   };
   index: string;
 }

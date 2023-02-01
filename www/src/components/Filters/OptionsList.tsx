@@ -8,7 +8,7 @@ function List({
   total,
   optionData,
   children,
-  height = 275,
+  height = 260,
 }: IOptionsListProps) {
   return (
     <FixedSizeList
