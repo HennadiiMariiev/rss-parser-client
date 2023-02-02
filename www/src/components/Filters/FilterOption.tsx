@@ -44,20 +44,16 @@ function FilterOption({ optionName }: IFilterOptionProps) {
   );
 
   const OptionsList = useCallback(() => {
-    const indexes = getOptionIndexes(option, optionData);
-    const [checked, setChecked] = useState(
-      Array.from({ length: total }, (_, idx) => indexes.includes(idx)),
-    );
+    const idxs = getOptionIndexes(option, optionData);
+    const initState = Array.from({ length: total }, (_, i) => idxs.includes(i));
+    const [checked, setChecked] = useState(initState);
 
     useEffect(() => {
       setChecked((prev) => {
-        indexes.forEach((idx) => (prev[idx] = true));
+        idxs.forEach((i) => (prev[i] = true));
         return prev;
       });
     }, []);
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-      onFilterItemSelect(e, option, callback);
 
     if (isLoading || (isFetching && !isError)) {
       return <FilterSkeleton />;
@@ -77,7 +73,9 @@ function FilterOption({ optionName }: IFilterOptionProps) {
               optionName={optionName}
               name={name}
               index={index}
-              onChange={onChange}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onFilterItemSelect(e, option, callback)
+              }
               checked={checked}
               setChecked={setChecked}
             />

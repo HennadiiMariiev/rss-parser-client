@@ -61,8 +61,6 @@ function SinglePost({
         />
       </div>
       <div className={classes['post-meta']}>
-        <p className={classes['post-date']}>{pubDateAndTime}</p>
-        <ul className={classes['post-categories-list']}>{categories}</ul>
         <h6 className={classes['post-title']}>{post?.title}</h6>
         <p
           className={classes['post-description']}
@@ -71,6 +69,8 @@ function SinglePost({
         {post?.creator?.name && (
           <i className={classes['post-creator']}>by {post?.creator?.name}</i>
         )}
+        <ul className={classes['post-categories-list']}>{categories}</ul>
+        <p className={classes['post-date']}>{pubDateAndTime}</p>
         <a href={post?.link} className={classes['post-link']} target="__blank">
           Read on LifeHacker...
         </a>
