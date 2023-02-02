@@ -29,23 +29,22 @@ function FilterOption({ optionName }: IFilterOptionProps) {
     useAppContext();
   const { data, isLoading, isError, isFetching, refetch } =
     optionName === 'creators' ? useGetCreators() : useGetCategories();
+  const option = optionName === 'creators' ? creators : categories;
+  const callback = optionName === 'creators' ? setCreators : setCategories;
+  const total: number = data?.data?.data?.pagination?.total! + 1 || 0;
+
   let optionData: IOption[] = addNoOptionItem(
     data?.data?.data?.[optionName as keyof IKeys]!,
     optionName,
   );
-  const total: number = data?.data?.data?.pagination?.total! + 1 || 0;
 
-  const onReset = useCallback(() => {
-    optionName === 'creators'
-      ? resetOption(creators, setCreators, refetch)
-      : resetOption(categories, setCategories, refetch);
-  }, [refetch, optionName, setCreators, setCategories, creators, categories]);
+  const onReset = useCallback(
+    () => resetOption(option, callback, refetch),
+    [refetch, optionName, option, callback],
+  );
 
   const OptionsList = useCallback(() => {
-    const indexes =
-      optionName === 'creators'
-        ? getOptionIndexes(creators, optionData)
-        : getOptionIndexes(categories, optionData);
+    const indexes = getOptionIndexes(option, optionData);
     const [checked, setChecked] = useState(
       Array.from({ length: total }, (_, idx) => indexes.includes(idx)),
     );
@@ -57,11 +56,8 @@ function FilterOption({ optionName }: IFilterOptionProps) {
       });
     }, []);
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      optionName === 'creators'
-        ? onFilterItemSelect(e, creators, setCreators)
-        : onFilterItemSelect(e, categories, setCategories);
-    };
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+      onFilterItemSelect(e, option, callback);
 
     if (isLoading || (isFetching && !isError)) {
       return <FilterSkeleton />;

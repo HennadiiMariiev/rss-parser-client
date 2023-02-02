@@ -6,6 +6,7 @@ import {
   SubmitHandler,
   FieldErrorsImpl,
   DeepRequired,
+  UseFormGetValues,
 } from 'react-hook-form';
 import { UseMutationResult } from 'react-query';
 import { AxiosResponse } from 'axios';
@@ -337,6 +338,7 @@ export interface IPostModalMarkupProps {
   onHide: () => void;
   OptionsList: () => JSX.Element;
   register: UseFormRegister<INewPostFormValues>;
+  imgSrc: string;
   errors: FieldErrorsImpl<DeepRequired<INewPostFormValues>>;
   creatorsOptions: JSX.Element[];
   onSubmit: SubmitHandler<INewPostFormValues>;

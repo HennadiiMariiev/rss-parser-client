@@ -14,7 +14,6 @@ import instance from './instance';
 
 function getAllPosts(options: IOptions) {
   const params = prepareParams(options);
-  console.log(params);
 
   return instance.get<IPostsResponse>('/posts', {
     params,

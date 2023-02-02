@@ -23,11 +23,12 @@ function EditPostModal({
     formState: { errors },
     setValue,
     getValues,
+    watch,
     clearErrors,
-    reset,
   } = useForm<INewPostFormValues>();
   const { data: creatorsData } = useGetCreators();
   const { data: categoriesData } = useGetCategories();
+  const imgSrc = watch('image');
 
   useEffect(() => {
     addValuesOnEdit(setValue, editModal.post);
@@ -89,6 +90,7 @@ function EditPostModal({
       OptionsList={OptionsList}
       creatorsOptions={creatorsOptions}
       register={register}
+      imgSrc={imgSrc}
       errors={errors}
       handleSubmit={handleSubmit}
       onSubmit={onConfirmClick}

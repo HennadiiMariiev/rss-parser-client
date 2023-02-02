@@ -8,6 +8,7 @@ import instance from './instance';
 
 function getAllCategories(options?: IOptions) {
   const params = preparePaginationParams(options);
+
   return instance.get<IGetOptionsResponse>('/categories', {
     params,
   } as AxiosRequestConfig);

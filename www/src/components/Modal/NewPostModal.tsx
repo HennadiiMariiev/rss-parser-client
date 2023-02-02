@@ -30,9 +30,11 @@ function NewPostModal({ showModal, onCloseModal }: IDialogModalProps) {
     getValues,
     clearErrors,
     reset,
+    watch,
   } = useForm<INewPostFormValues>();
   const { data: creatorsData } = useGetCreators();
   const { data: categoriesData } = useGetCategories();
+  const imgSrc = watch('image');
 
   useEffect(() => {
     setLoading(addPost.isLoading);
@@ -103,6 +105,7 @@ function NewPostModal({ showModal, onCloseModal }: IDialogModalProps) {
       OptionsList={OptionsList}
       creatorsOptions={creatorsOptions}
       register={register}
+      imgSrc={imgSrc}
       errors={errors}
       handleSubmit={handleSubmit}
       onSubmit={onConfirmClick}

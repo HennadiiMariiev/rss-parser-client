@@ -1,8 +1,11 @@
 import React from 'react';
 import { Form, Modal, Button } from 'react-bootstrap';
+
 import { imageUrlPattern, LHLinkPattern } from '../../../config/vars/regexp';
 import { IPostModalMarkupProps } from '../../interfaces/interfaces';
 import ButtonLoader from '../Loaders/ButtonLoader';
+
+import classes from './modal.module.scss';
 
 function WarningText({ text }: { text: string }): JSX.Element {
   return (
@@ -21,18 +24,28 @@ function PostModalMarkup({
   handleSubmit,
   OptionsList,
   register,
+  imgSrc,
   errors,
   isEdit = false,
 }: IPostModalMarkupProps) {
   return (
-    <Modal show={show} onHide={onHide} backdrop="static" centered>
+    <Modal
+      show={show}
+      onHide={onHide}
+      backdrop="static"
+      centered
+      size="xl"
+      fullscreen="sm-down"
+    >
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header closeButton>
           <Modal.Title>{isEdit ? 'Edit post' : 'New post'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-2 w-100" controlId="post-title">
-            <Form.Label id="post-title">Title</Form.Label>
+            <Form.Label id="post-title" className={classes.title}>
+              Title
+            </Form.Label>
             <Form.Control
               placeholder="Title"
               aria-describedby="post-title"
@@ -46,7 +59,9 @@ function PostModalMarkup({
           </Form.Group>
 
           <Form.Group className="mb-2 w-100" controlId="post-description">
-            <Form.Label id="post-description">Description</Form.Label>
+            <Form.Label id="post-description" className={classes.title}>
+              Description
+            </Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
@@ -65,9 +80,12 @@ function PostModalMarkup({
             )}
           </Form.Group>
 
-          <Form.Group className="mb-2 w-100" controlId="post-image">
-            <Form.Label id="post-image">Image link</Form.Label>
+          <Form.Group className={classes.imageWrapper} controlId="post-image">
+            <Form.Label id="post-image" className={classes.title}>
+              Image link
+            </Form.Label>
             <Form.Control
+              className="mb-2"
               placeholder="Link to related image"
               aria-describedby="post-image"
               {...register('image', {
@@ -80,10 +98,18 @@ function PostModalMarkup({
             {errors?.image && (
               <WarningText text={`image link ${errors?.image?.message}`} />
             )}
+            <img
+              src={imgSrc}
+              alt="Post Image Preview"
+              width="200"
+              height="100"
+            />
           </Form.Group>
 
           <Form.Group className="mb-2 w-100" controlId="post-link">
-            <Form.Label id="post-link">Post Link</Form.Label>
+            <Form.Label id="post-link" className={classes.title}>
+              Post Link
+            </Form.Label>
             <Form.Control
               placeholder="https://lifehacker.com/..."
               aria-describedby="post-link"
@@ -96,7 +122,9 @@ function PostModalMarkup({
             {errors?.link && <WarningText text="post link" />}
           </Form.Group>
 
-          <Form.Label id="post-creator">Creator</Form.Label>
+          <Form.Label id="post-creator" className={classes.title}>
+            Creator
+          </Form.Label>
           <Form.Select
             placeholder="Creator"
             aria-describedby="post-creator"
@@ -105,7 +133,9 @@ function PostModalMarkup({
           >
             {creatorsOptions}
           </Form.Select>
-          <Form.Label id="post-categories">Categories</Form.Label>
+          <Form.Label id="post-categories" className={classes.title}>
+            Categories
+          </Form.Label>
           <OptionsList />
         </Modal.Body>
         <Modal.Footer>

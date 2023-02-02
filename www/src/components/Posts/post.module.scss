@@ -8,6 +8,10 @@
   max-width: 1500px;
   margin-bottom: 1rem;
   padding: 0;
+
+  &:has(.no-items) {
+    justify-content: center;
+  }
 }
 
 .post {
