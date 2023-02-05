@@ -22,16 +22,6 @@ function PostSkeleton() {
       <Card.Body
         className={cn(classes['skeleton-meta'], 'align-items-stretch')}
       >
-        <Placeholder animation="glow" className="mb-3">
-          <Placeholder xs={5} />
-        </Placeholder>
-        <Placeholder animation="glow" className="mb-3" as={Card.Title}>
-          <Placeholder xs={4} className={classes['skeleton-color']} />{' '}
-          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
-          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
-          <Placeholder xs={5} className={classes['skeleton-color']} />{' '}
-          <Placeholder xs={3} className={classes['skeleton-color']} />
-        </Placeholder>
         <Placeholder as={Card.Title} animation="glow">
           <Placeholder xs={6} />
         </Placeholder>
@@ -41,11 +31,24 @@ function PostSkeleton() {
           <Placeholder xs={2} />
           <Placeholder xs={3} />
         </Placeholder>
+        <Placeholder animation="glow" className="mb-3" as={Card.Title}>
+          <Placeholder xs={4} className={classes['skeleton-color']} />{' '}
+          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
+          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
+          <Placeholder xs={5} className={classes['skeleton-color']} />{' '}
+          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
+          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
+          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
+          <Placeholder xs={3} className={classes['skeleton-color']} />{' '}
+        </Placeholder>
         <Placeholder animation="glow" className="mb-3 text-end">
-          <Placeholder xs={3} />
+          <Placeholder xs={5} />
+        </Placeholder>
+        <Placeholder animation="glow" className="mb-3">
+          <Placeholder xs={5} />
         </Placeholder>
         <Placeholder animation="glow">
-          <Placeholder xs={3} className={classes['skeleton-color']} />
+          <Placeholder xs={4} className={classes['skeleton-color']} />
         </Placeholder>
       </Card.Body>
     </Card>

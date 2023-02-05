@@ -66,10 +66,12 @@ function SinglePost({
           className={classes['post-description']}
           dangerouslySetInnerHTML={{ __html: post?.description }}
         />
-        {post?.creator?.name && (
-          <i className={classes['post-creator']}>by {post?.creator?.name}</i>
-        )}
         <ul className={classes['post-categories-list']}>{categories}</ul>
+        {post?.creator?.name && (
+          <i className={classes['post-creator']}>
+            Creator: {post?.creator?.name}
+          </i>
+        )}
         <p className={classes['post-date']}>{pubDateAndTime}</p>
         <a href={post?.link} className={classes['post-link']} target="__blank">
           Read on LifeHacker...

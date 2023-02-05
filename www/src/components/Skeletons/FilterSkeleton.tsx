@@ -13,7 +13,7 @@ function ItemSkeleton() {
 }
 
 function FilterSkeleton() {
-  const skeletons = Array.from({ length: 8 }, (_, idx) => (
+  const skeletons = Array.from({ length: 9 }, (_, idx) => (
     <ItemSkeleton key={idx} />
   ));
 
